@@ -1,5 +1,21 @@
 from django.views.generic import TemplateView
+from django.template.response import TemplateResponse
+from projects.forms import ProjectForm
 
 
 class IndexView(TemplateView):
     template_name = 'panel/index.html'
+
+
+def add_project(request):
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+
+        if form.is_valid():
+            return
+
+    else:
+        form = ProjectForm()
+
+    return TemplateResponse(request, 'panel/project_form.html', {'form': form})
