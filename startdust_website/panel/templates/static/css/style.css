@@ -1,0 +1,69 @@
+body {
+    font-family: 'Segoe UI', Calibri, 'Myriad Pro', Myriad, 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    background-color: #f7f9f9;
+}
+
+.bar{
+    background-color: #02313d;
+    width: 100%;
+    height: 6px;
+}
+
+.header {
+    width: 100%;
+    height: 113px;
+    background:url(../images/header/background.gif) repeat-x;
+}
+
+.header h1 {
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 113px;
+}
+
+.menu {
+    border-bottom: 1px solid #ccc;
+    height: 39px;
+    background:url(../images/menu/background.gif) repeat-x;
+}
+
+.menu .signin {
+    font-weight: bold;
+    background:url(../images/menu/seta.png) 70px 17px no-repeat;
+    padding: 12px 90px 12px 0px;
+    float: left;
+}
+
+.menu .signin a{
+    color: #000;
+    text-decoration: none;
+}
+
+.menu .signin a:hover{
+    color: #a73636;
+}
+
+.menu ul{
+    float: right;
+}
+
+.menu ul li {
+    float: left;
+}
+
+.menu ul li a {
+    font-size: 16px;
+    color: #535353;
+    text-decoration: none;
+    padding: 12px;
+    display: block;
+}
+
+.menu ul li:hover{
+    background-color: #a73636;
+}
+
+.menu ul li a:hover {
+    color: #fff;
+}
