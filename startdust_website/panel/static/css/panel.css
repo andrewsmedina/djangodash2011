@@ -1,0 +1,23 @@
+.menu .user {
+    font-weight: bold;
+    background:url(../images/panel/seta.png) 0px 17px no-repeat;
+    padding: 12px 0px 12px 20px;
+    float: left;
+}
+
+.menu .user a {
+    color: #000;
+}
+
+.footer-panel {
+	background-color: #e0e0e0;
+    border-top: solid 1px #9f9f9f;
+    height: 50px;
+}
+
+.footer-panel p {
+    color: #9f9f9f;
+    font-size: 12px;
+    float: right;
+    line-height: 50px;
+}
