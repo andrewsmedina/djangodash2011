@@ -1,1 +1,18 @@
-{{ form.as_p}}
+{% extends "panel/base.html" %}
+
+{% block form %}
+	<link rel="stylesheet" href="/static/css/form.css" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h2>Add your project</h2>
+	<div class="form">
+	    <form method="post" action="">
+	    	{% csrf_token %}
+	    	{{ form.as_p}}
+	        <p><input type="submit" value="Add project" /></p>
+	    </form>
+    </div>
+</div>
+{% endblock %}

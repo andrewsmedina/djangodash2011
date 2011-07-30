@@ -1,6 +1,16 @@
 from django.test import TestCase
 from datetime import datetime
 from errors.models import Error
+from errors.forms import ErrorForm
+
+
+class ErrorFormTestCase(TestCase):
+
+    def test_error_form_should_use_error_model(self):
+        '''
+        ErrorForm should use Error model for form generation
+        '''
+        self.assertEqual(Error, ErrorForm._meta.model)
 
 
 class ErrorModelTestCase(TestCase):

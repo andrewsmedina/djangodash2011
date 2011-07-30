@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+        <title>stardust</title>
+        <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />         
+        <link rel="stylesheet" href="/static/css/grid.css" type="text/css" /> 
+        <link rel="stylesheet" href="/static/css/style.css" type="text/css" />    
+        <link rel="stylesheet" href="/static/css/panel.css" type="text/css" />
+        {% block form %}{% endblock %}    
+    </head>
+    <body>
+        <div class="bar"></div>
+        <div class="header">
+            <div class="row">
+                <div class="column grid_12">
+                    <h1>stardust</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="row">
+                <div class="column grid_12">
+                    <div class="user">
+                        <a href="">Hello Username</a>
+                    </div>
+                    <ul>
+                        <li><a href="">edit profile</a></li>
+                        <li><a href="">support</a></li>
+                        <li><a href="">logout</a></li>
+                    </ul>               
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="column grid_12">
+                    {% block content %}{% endblock %}
+            </div>
+        </div>
+        <div class="footer-panel">
+            <div class="row">
+                <div class="column grid_12">
+                    <p>© 2011-2011</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
