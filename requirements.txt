@@ -3,3 +3,4 @@ django-nose==0.1.3
 nose==1.1.1
 gunicorn
 hg+https://andrewsmedina@bitbucket.org/ubernostrum/django-registration
+coverage==3.5
