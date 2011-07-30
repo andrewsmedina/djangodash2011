@@ -5,7 +5,6 @@ from home.views import IndexView
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='index'),
 
-    #(r'^panel/projects/add/', )
     (r'^panel/', include('panel.urls')),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^auth/', include('registration.auth_urls')),
