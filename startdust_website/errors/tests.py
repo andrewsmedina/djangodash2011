@@ -39,6 +39,12 @@ class ErrorModelTestCase(TestCase):
         '''
         self.assertFieldIn('exception', Error._meta.fields)
 
+    def test_error_model_should_have_a_project_related(self):
+        '''
+        error should related with project
+        '''
+        self.assertFieldIn('project', Error._meta.fields)
+
     def test_unicode_for_error_should_return_error_exception(self):
         '''
         error unicode should returns error exception
