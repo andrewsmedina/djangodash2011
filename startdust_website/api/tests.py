@@ -24,6 +24,21 @@ class ApiPostErrorViewTestCase(TestCase):
         except Error.DoesNotExist:
             assert False
 
+    def test_api_error_post_view_should_returns_200(self):
+        '''
+        api error post should returns 200 if error is added
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'url': 'http://someurl.com',
+            'traceback': 'some traceback',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(200, response.status_code)
+
     def test_add_error_should_returns_405_when_the_method_isnt_post(self):
         '''
         add_error should returns 405 status code when method isnt a post

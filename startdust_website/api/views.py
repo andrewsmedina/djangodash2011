@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotAllowed
+from django.http import HttpResponseNotAllowed, HttpResponse
 from errors.models import Error
 from datetime import datetime
 
@@ -11,4 +11,6 @@ def add_error(request):
             url=request.POST['url'],
             traceback=request.POST['traceback']
         )
+        return HttpResponse('error added with success!')
+
     return HttpResponseNotAllowed(['post'])
