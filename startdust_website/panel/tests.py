@@ -5,11 +5,12 @@ from panel.views import IndexView
 
 class IndexViewTestCase(TestCase):
 
+    def setUp(self):
+        request = RequestFactory().get('/')
+        self.response = IndexView.as_view()(request)
+
     def test_index_view_should_render_base_dot_html(self):
         '''
         index view should render panel/base.html
         '''
-        request = RequestFactory().get('/')
-        response = IndexView.as_view()(request)
-
-        self.assertIn('panel/base.html', response.template_name)
+        self.assertIn('panel/base.html', self.response.template_name)
