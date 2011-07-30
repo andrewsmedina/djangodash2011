@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
+from django.contrib.auth.models import User
 from panel.views import IndexView, add_project, show_project, remove_project, change_project
 from projects.forms import ProjectForm
 from projects.models import Project
