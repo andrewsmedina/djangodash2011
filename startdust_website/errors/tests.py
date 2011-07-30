@@ -14,3 +14,12 @@ class ErrorModelTestCase(TestCase):
 
         assert False
 
+    def test_error_model_should_have_a_url_attribute(self):
+        '''
+        error model should have a url attribute
+        '''
+        for field in Error._meta.fields:
+            if field.name == 'url':
+                return
+
+        assert False
