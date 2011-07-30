@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.db.models.query import QuerySet
 from panel.views import IndexView
+from errors.models import Error
 
 
 class IndexViewTestCase(TestCase):
@@ -27,3 +29,13 @@ class IndexViewTestCase(TestCase):
         panel index view should include error list in context
         '''
         self.assertIn('errors', self.response.context_data)
+
+    def test_error_context_should_be_a_queryset(self):
+        '''
+        error context should be a queryset
+        '''
+        self.assertTrue(isinstance(self.response.context_data['errors'], QuerySet))
+
+    def test_error_context_should_be_a_queryset_of_error_model(self):
+        self.assertEqual(Error, self.response.context_data['errors'].model)
+
