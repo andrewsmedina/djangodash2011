@@ -9,7 +9,7 @@ class IndexViewTestCase(TestCase):
         request = RequestFactory().get('/')
         self.response = IndexView.as_view()(request)
 
-    def test_index_view_should_render_base_dot_html(self):
+    def test_index_view_should_render_home_dot_html(self):
         '''
         index view should render home/index.html
         '''
