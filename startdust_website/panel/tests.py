@@ -62,27 +62,24 @@ class AddProjectViewTestCase(TestCase):
 
     def test_add_project_post_should_return_status_code_302(self):
         request = self.factory.post('/painel/projects/add/', {'name': 'Project of test',
-                                                              'url': 'http://urlofprojecttest.com',
-                                                              'token': 'thistoken'})
+                                                              'url': 'http://urlofprojecttest.com'})
         response = add_project(request)
         self.assertEqual(response.status_code, 302)
 
     def test_registration_project_should_work_correctly(self):
         dados = {'name': 'Project of test',
-                  'url': u'http://urlofprojecttest.com/',
-                  'token': 'thistoken'}
+                  'url': u'http://urlofprojecttest.com/'}
         request = self.factory.post('/painel/projects/add/', dados)
         response = add_project(request)
 
         expected_project = Project.objects.get(name=dados['name'])
 
         self.assertEqual(expected_project.url, dados['url'])
-        self.assertEqual(expected_project.token, dados['token'])
+        self.assertTrue(expected_project.token)
 
     def test_registration_project_with_invalid_data_should_return_errors(self):
         dados = {'name': '',
-                  'url': u'urlofprojecttest',
-                  'token': ''}
+                  'url': u'urlofprojecttest'}
         request = self.factory.post('/painel/projects/add/', dados)
         response = add_project(request)
 
@@ -91,7 +88,6 @@ class AddProjectViewTestCase(TestCase):
         errors = response.context_data['form'].errors
 
         self.assertEqual(errors['name'], [u'This field is required.'])
-        self.assertEqual(errors['token'], [u'This field is required.'])
         self.assertEqual(errors['url'], [u'Enter a valid URL.'])
 
 class ShowProjectViewTestCase(TestCase):
