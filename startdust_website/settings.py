@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'home',
     'projects',
     'api',
+    'responses',
 
     'registration',
     'django_nose',
