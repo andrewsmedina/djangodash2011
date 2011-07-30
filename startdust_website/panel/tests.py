@@ -73,6 +73,7 @@ class AddProjectViewTestCase(TestCase):
     def test_registration_project_should_work_correctly(self):
         dados = {'name': 'Project of test',
                   'url': u'http://urlofprojecttest.com/'}
+
         request = self.factory.post('/painel/projects/add/', dados)
         request.user = self.user
         response = add_project(request)
@@ -80,6 +81,7 @@ class AddProjectViewTestCase(TestCase):
         expected_project = Project.objects.get(name=dados['name'])
 
         self.assertEqual(expected_project.url, dados['url'])
+        self.assertEqual(expected_project.user.all()[0], self.user)
         self.assertTrue(expected_project.token)
 
     def test_registration_project_with_invalid_data_should_return_errors(self):

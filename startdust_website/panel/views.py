@@ -1,4 +1,5 @@
 from uuid import uuid4
+from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
@@ -31,7 +32,8 @@ def add_project(request):
 
         if form.is_valid():
             form.instance.token = str(uuid4())
-            form.save()
+            instance = form.save()
+            instance.user.add(request.user)
             return HttpResponseRedirect('/panel/projects/%d' % form.instance.id)
 
     else:
