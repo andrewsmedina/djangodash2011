@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/static/css/panel.css" type="text/css" />
         {% block form %}{% endblock %}    
     </head>
+    {% block flot %} {% endblock %}
     <body>
         <div class="bar"></div>
         <div class="header">
@@ -24,7 +25,7 @@
                         <a href="">Hi {{ request.user }}</a>
                     </div>
                     <ul>
-                        <li><a href="">edit profile</a></li>
+                        <li><a href="">edit account</a></li>
                         <li><a href="">support</a></li>
                         <li><a href="/auth/logout/">logout</a></li>
                     </ul>               
