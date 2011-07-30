@@ -13,6 +13,9 @@ class IndexView(TemplateView):
         context['errors'] = Error.objects.all()
         return context
 
+def show_project(request, id_project):
+    return TemplateResponse(request, '/panel/project.html', {})
+
 
 def add_project(request):
 
