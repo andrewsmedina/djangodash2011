@@ -4,6 +4,15 @@
     {{ project.name }}
     {{ project.url }}
 
+    {% if project.set_responses %}
+        responses:
+        {% for response in project.set_responses %}
+            {{ response.url }} - {{ response.time}}
+        {% endif %}
+    {% else %}
+        0 responses
+    {% endif %}
+
     {% if project.set_errors %}
         errors:
         {% for error in  project.set_errors %}
