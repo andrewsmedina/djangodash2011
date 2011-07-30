@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
+from django.http import HttpResponseRedirect
 from projects.forms import ProjectForm
 
 
@@ -13,7 +14,8 @@ def add_project(request):
         form = ProjectForm(request.POST)
 
         if form.is_valid():
-            return
+            form.save()
+            return HttpResponseRedirect('/panel/')
 
     else:
         form = ProjectForm()

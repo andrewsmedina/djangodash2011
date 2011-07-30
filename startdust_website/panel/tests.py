@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from panel.views import IndexView, add_project
 from projects.forms import ProjectForm
+from projects.models import Project
 
 
 class IndexViewTestCase(TestCase):
@@ -31,6 +32,9 @@ class ProjectViewTestCase(TestCase):
         request = self.factory.get('/painel/projects/add/')
         self.response = add_project(request)
 
+    def tearDown(self):
+        Project.objects.all().delete()
+
     def test_add_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
 
@@ -40,5 +44,23 @@ class ProjectViewTestCase(TestCase):
     def test_add_project_should_have_form_fields_on_rendered_content(self):
         self.assertTrue(self.response.rendered_content)
 
+    def test_add_project_post_should_return_status_code_302(self):
+        request = self.factory.post('/painel/projects/add/', {'name':'Project of test',
+                                                              'url':'http://urlofprojecttest.com',
+                                                              'token': 'thistoken'})
+        response = add_project(request)
+        self.assertEqual(response.status_code, 302)
+
+    def test_dados_do_projetos_cadastrados_no_form_com_sucesso(self):
+        dados =  {'name':'Project of test',
+                  'url': u'http://urlofprojecttest.com/',
+                  'token': 'thistoken'}
+        request = self.factory.post('/painel/projects/add/', dados)
+        response = add_project(request)
+
+        expected_project = Project.objects.get(name=dados['name'])
+
+        self.assertEqual(expected_project.url, dados['url'])
+        self.assertEqual(expected_project.token, dados['token'])
 
 
