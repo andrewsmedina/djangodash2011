@@ -45,8 +45,10 @@ class IndexViewTestCase(TestCase):
 class AddProjectViewTestCase(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create(username='test', password='test', email='test@test.com')
         self.factory = RequestFactory()
         request = self.factory.get('/painel/projects/add/')
+        request.user = self.user
         self.response = add_project(request)
 
     def tearDown(self):
@@ -64,6 +66,7 @@ class AddProjectViewTestCase(TestCase):
     def test_add_project_post_should_return_status_code_302(self):
         request = self.factory.post('/painel/projects/add/', {'name': 'Project of test',
                                                               'url': 'http://urlofprojecttest.com'})
+        request.user = self.user
         response = add_project(request)
         self.assertEqual(response.status_code, 302)
 
@@ -71,6 +74,7 @@ class AddProjectViewTestCase(TestCase):
         dados = {'name': 'Project of test',
                   'url': u'http://urlofprojecttest.com/'}
         request = self.factory.post('/painel/projects/add/', dados)
+        request.user = self.user
         response = add_project(request)
 
         expected_project = Project.objects.get(name=dados['name'])
@@ -82,6 +86,7 @@ class AddProjectViewTestCase(TestCase):
         dados = {'name': '',
                   'url': u'urlofprojecttest'}
         request = self.factory.post('/painel/projects/add/', dados)
+        request.user = self.user
         response = add_project(request)
 
         self.assertFalse(response.context_data['form'].is_valid())
@@ -94,13 +99,16 @@ class AddProjectViewTestCase(TestCase):
 class ShowProjectViewTestCase(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create(username='test', password='test', email='test@test.com')
         self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
         self.factory = RequestFactory()
         request = self.factory.get('/panel/projects/%d' % self.project.id)
+        request.user = self.user
         self.response = show_project(request, self.project.id)
 
     def tearDown(self):
         self.project.delete()
+        self.user.delete()
 
     def test_show_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
@@ -113,6 +121,7 @@ class ShowProjectViewTestCase(TestCase):
 
     def test_access_invalid_project_should_return_404(self):
         request = self.factory.get('/panel/project/12333322')
+        request.user = self.user
         try:
             show_project(request, 12333322)
         except:
@@ -124,13 +133,16 @@ class ShowProjectViewTestCase(TestCase):
 class RemoveProjectViewTestCase(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create(username='test', password='test', email='test@test.com')
         self.project = Project.objects.create(name='project teste', url='projeto de teste', token='123213123213')
         self.factory = RequestFactory()
         request = self.factory.get('')
+        request.user = self.user
         self.response = remove_project(request, self.project.id)
 
     def tearDown(self):
         self.project.delete()
+        self.user.delete()
 
     def test_remove_project_should_return_302(self):
         self.assertEqual(self.response.status_code, 302)
@@ -145,6 +157,7 @@ class RemoveProjectViewTestCase(TestCase):
 
     def test_trying_to_remove_nonexistent_project_should_return_404(self):
         request = self.factory.get('')
+        request.user = self.user
         try:
             remove_project(request, 123333)
         except:
@@ -156,13 +169,16 @@ class RemoveProjectViewTestCase(TestCase):
 class ChangeProjectViewTestCase(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create(username='test', password='test', email='test@test.com')
         self.project = Project.objects.create(name='project of teste', url='http://urlqq.com', token='123333444555')
         self.factory = RequestFactory()
         request = self.factory.get('/panel/project/%d/change/' % self.project.id)
+        request.user = self.user
         self.response = change_project(request, self.project.id)
 
     def tearDown(self):
         self.project.delete()
+        self.user.delete()
 
     def test_change_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
@@ -177,6 +193,7 @@ class ChangeProjectViewTestCase(TestCase):
         project_data =  {'name': 'other test name',
                          'url': u'http://otherurl.com/'}
         request = self.factory.post('/panel/projects/%d/change/' % self.project.id, project_data)
+        request.user = self.user
         response = change_project(request, self.project.id)
 
         expected_project = Project.objects.get(id=self.project.id)
