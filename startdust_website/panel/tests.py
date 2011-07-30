@@ -21,3 +21,9 @@ class IndexViewTestCase(TestCase):
         '''
         response = self.client.get('/panel/')
         self.assertEqual(200, response.status_code)
+
+    def test_panel_index_should_include_error_list_in_context(self):
+        '''
+        panel index view should include error list in context
+        '''
+        self.assertIn('errors', self.response.context_data)
