@@ -31,5 +31,4 @@ class ProjectFormTestCase(TestCase):
         project_form = ProjectForm()
         self.assertTrue(project_form['name'])
         self.assertTrue(project_form['url'])
-        self.assertTrue(project_form['token'])
 
