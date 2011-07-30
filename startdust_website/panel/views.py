@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
@@ -29,6 +30,7 @@ def add_project(request):
         form = ProjectForm(request.POST)
 
         if form.is_valid():
+            form.instance.token = str(uuid4())
             form.save()
             return HttpResponseRedirect('/panel/projects/%d' % form.instance.id)
 
@@ -41,3 +43,17 @@ def add_project(request):
 def remove_project(request, id_project):
     get_object_or_404(Project, id=id_project).delete()
     return HttpResponseRedirect('/panel/')
+
+def change_project(request, id_project):
+    project = get_object_or_404(Project, id=id_project)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/panel/projects/%d/' % form.instance.id)
+    else:
+        form = ProjectForm(instance=project)
+
+    return TemplateResponse(request, 'panel/project_form.html', {'form': form})

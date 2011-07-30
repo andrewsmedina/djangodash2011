@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
-from panel.views import IndexView, add_project, show_project, remove_project
+from panel.views import IndexView, add_project, show_project, remove_project, change_project
 from projects.forms import ProjectForm
 from projects.models import Project
 
@@ -152,4 +152,35 @@ class RemoveProjectViewTestCase(TestCase):
         assert False
 
 
+class ChangeProjectViewTestCase(TestCase):
 
+    def setUp(self):
+        self.project = Project.objects.create(name='project of teste', url='http://urlqq.com', token='123333444555')
+        self.factory = RequestFactory()
+        request = self.factory.get('/panel/project/%d/change/' % self.project.id)
+        self.response = change_project(request, self.project.id)
+
+    def tearDown(self):
+        self.project.delete()
+
+    def test_change_project_should_return_status_code_200(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_change_project_should_have_form_with_data_on_form(self):
+        expected_project = self.response.context_data['form'].instance
+
+        self.assertEqual(self.project.name, expected_project.name)
+        self.assertEqual(self.project.url, expected_project.url)
+
+    def test_project_data_should_changed_correctly(self):
+        project_data =  {'name': 'other test name',
+                         'url': u'http://otherurl.com/'}
+        request = self.factory.post('/panel/projects/%d/change/' % self.project.id, project_data)
+        response = change_project(request, self.project.id)
+
+        expected_project = Project.objects.get(id=self.project.id)
+
+        self.assertEqual(expected_project.id, self.project.id)
+        self.assertEqual(expected_project.token, self.project.token)
+        self.assertEqual(expected_project.name, project_data['name'])
+        self.assertEqual(expected_project.url, project_data['url'])
