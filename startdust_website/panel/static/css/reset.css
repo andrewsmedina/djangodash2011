@@ -21,6 +21,9 @@ time, mark, audio, video {
 body {
 	line-height: 1;
 }
+a, a:hover{
+	text-decoration:none;
+}
 ol, ul, li{
 	list-style: none;
 }
