@@ -14,3 +14,10 @@ class IndexViewTestCase(TestCase):
         index view should render home/index.html
         '''
         self.assertIn('home/index.html', self.response.template_name)
+
+    def test_index_url_should_be_returns_200_how_status_code(self):
+        '''
+        url for index view should be returns 200 in status code
+        '''
+        response = self.client.get('/')
+        self.assertEqual(200, response.status_code)
