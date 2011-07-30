@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     #(r'^panel/projects/add/', )
     (r'^accounts/', include('registration.backends.default.urls')),
+    (r'^auth/', include('registration.auth_urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
