@@ -15,11 +15,12 @@ body {
     background:url(../images/header/background.gif) repeat-x;
 }
 
-.header h1 {
+.header h1 a{
     color: #fff;
     font-size: 40px;
     font-weight: bold;
     line-height: 113px;
+    text-decoration: none;
 }
 
 .menu {
@@ -37,6 +38,7 @@ body {
 
 .menu .signin a {
     color: #000;
+    text-decoration: none;
 }
 
 .menu .signin a:hover{
