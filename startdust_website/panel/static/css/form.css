@@ -28,6 +28,7 @@
 .form input[type=submit]:hover {
 	background-color: #000;
 	color: #fff;
+	outline: none;
 }
 
 .errorlist{
