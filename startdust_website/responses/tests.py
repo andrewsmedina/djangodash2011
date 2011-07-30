@@ -1,6 +1,15 @@
 from django.test import TestCase
 from responses.models import Response
+from responses.forms import ResponseForm
 
+
+class ResponseFormTestCase(TestCase):
+    
+    def test_response_form_should_use_response_model(self):
+        '''
+        response form should use response model
+        '''
+        self.assertEqual(Response, ResponseForm._meta.model)
 
 class ResponseModelTestCase(TestCase):
 
