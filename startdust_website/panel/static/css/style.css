@@ -91,7 +91,7 @@ body {
     margin-top: 55px;
 }
 
-.signup a{
+.signup a {
     color: #fff;
     float: left;
     font-size: 25px;
@@ -99,8 +99,13 @@ body {
     padding: 5px 21px;
 }
 
-.line{
+.line {
     background-color: #e0e0e0;
     height: 7px;
     margin-top: 30px;
+}
+
+.footer {
+    background-color: #02313d;
+    height: 118px;
 }
