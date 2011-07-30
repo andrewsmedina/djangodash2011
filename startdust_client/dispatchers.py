@@ -13,7 +13,7 @@ def send_error_to_server(exception, url, traceback):
         'url': url,
         'traceback': traceback,
     }
-
+    
     post_dict = urllib.urlencode(post_dict)
     response = urllib.urlopen('%s/error/' % STARDUST_URL, post_dict).read()
     return response
