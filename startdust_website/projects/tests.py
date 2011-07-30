@@ -31,11 +31,14 @@ class ProjectViewTestCase(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
+        request = self.factory.get('/painel/projects/add/')
+        self.response = add_project(request)
 
     def test_add_project_should_return_status_code_200(self):
-        request = self.factory.get('/painel/projects/add/')
-        response = add_project(request)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_add_project_should_have_form_on_context(self):
+        self.assertEqual(self.response.context_data['form'].__class__, ProjectForm)
 
 
 class ProjectFormTestCase(TestCase):
@@ -45,3 +48,4 @@ class ProjectFormTestCase(TestCase):
         self.assertTrue(project_form['name'])
         self.assertTrue(project_form['url'])
         self.assertTrue(project_form['token'])
+
