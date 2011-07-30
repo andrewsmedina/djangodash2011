@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='index'),
     # url(r'^startdust_website/', include('startdust_website.foo.urls')),
 
-
+    #(r'^panel/projects/add/', )
     (r'^accounts/', include('registration.backends.default.urls')),
 )
 
