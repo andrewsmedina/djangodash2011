@@ -10,7 +10,7 @@
         <ul>
             {% for project in projects %}
                 <li>
-                    <p><span>Project name: </span>{{ project.name}}</p>
+                    <p><a href="{% url project project.id %}"><span>Project name: </span>{{ project.name}}</a></p>
                     <p><span>URL: </span>{{ project.url}}</p>
                     <p><span>Token: </span>{{ project.token }}</p>
                 </li>
