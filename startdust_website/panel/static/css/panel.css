@@ -58,6 +58,10 @@
 	font-weight: normal;
 }
 
+.projects span {
+	font-weight: bold;
+}
+
 .footer-panel {
 	background-color: #e0e0e0;
     border-top: solid 1px #9f9f9f;
