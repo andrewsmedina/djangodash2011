@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Error(models.Model):
+    date = models.DateTimeField()
