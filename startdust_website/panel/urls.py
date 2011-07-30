@@ -6,5 +6,5 @@ urlpatterns = patterns('',
 
     (r'^projects/(?P<id_project>\d+)/$', 'panel.views.show_project'),
     (r'^projects/add/', 'panel.views.add_project'),
-    (r'^projects/<?P<id_project>\d+)/$', 'panel.views.remove_project')
+    (r'^projects/(?P<id_project>\d+)/delete/$', 'panel.views.remove_project'),
 )
