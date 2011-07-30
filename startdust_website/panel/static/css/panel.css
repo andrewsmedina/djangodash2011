@@ -9,6 +9,27 @@
     color: #000;
 }
 
+.add-project {
+	width: 80px;
+	height: auto;
+	background-color: #a73636;
+	border: none;
+	border-radius: 8px;
+	padding: 20px;
+}
+
+.add-project a {
+	color: #fff;
+}
+
+.add-project:hover{
+	background-color: #000;
+}
+
+.add-project a:hover {
+	color: #fff;
+}
+
 .footer-panel {
 	background-color: #e0e0e0;
     border-top: solid 1px #9f9f9f;

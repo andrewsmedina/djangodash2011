@@ -10,7 +10,7 @@
 
 .form input {
 	border: 4px solid #ebebeb; 
-    border-radius: 8px 8px 8px 8px;
+    border-radius: 8px;
     color: #555555;
     padding: 10px;
     width: 200px;
@@ -20,5 +20,10 @@
 	width: 100px;
 	background-color: #a73636;
 	border: none;
+	color: #fff;
+}
+
+.form input[type=submit]:hover {
+	background-color: #000;
 	color: #fff;
 }
