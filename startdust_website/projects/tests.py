@@ -9,6 +9,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from projects.models import Project
 from projects.views import add_project
+from projects.forms import ProjectForm
 
 
 class ProjectModelTestCase(TestCase):
@@ -35,3 +36,12 @@ class ProjectViewTestCase(TestCase):
         request = self.factory.get('/painel/projects/add/')
         response = add_project(request)
         self.assertEqual(response.status_code, 200)
+
+
+class ProjectFormTestCase(TestCase):
+
+    def test_project_form(self):
+        project_form = ProjectForm()
+        self.assertTrue(project_form['name'])
+        self.assertTrue(project_form['url'])
+        self.assertTrue(project_form['token'])
