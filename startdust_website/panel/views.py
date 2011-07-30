@@ -30,9 +30,14 @@ def add_project(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/panel/')
+            return HttpResponseRedirect('/panel/projects/%d' % form.instance.id)
 
     else:
         form = ProjectForm()
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
+
+
+def remove_project(request, id_project):
+    get_object_or_404(Project, id=id_project).delete()
+    return HttpResponseRedirect('/panel/')

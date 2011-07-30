@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
-from panel.views import IndexView, add_project, show_project
+from panel.views import IndexView, add_project, show_project, remove_project
 from projects.forms import ProjectForm
 from projects.models import Project
 
@@ -113,7 +113,43 @@ class ShowProjectViewTestCase(TestCase):
     def test_access_invalid_project_should_return_404(self):
         request = self.factory.get('/panel/project/12333322')
         try:
-            response = show_project(request, 12333322)
+            show_project(request, 12333322)
         except:
-            assert True
+            return
+
+        assert False
+
+
+class RemoveProjectViewTestCase(TestCase):
+
+    def setUp(self):
+        self.project = Project.objects.create(name='project teste', url='projeto de teste', token='123213123213')
+        self.factory = RequestFactory()
+        request = self.factory.get('')
+        self.response = remove_project(request, self.project.id)
+
+    def tearDown(self):
+        self.project.delete()
+
+    def test_remove_project_should_return_302(self):
+        self.assertEqual(self.response.status_code, 302)
+
+    def test_should_remove_the_project_successfully(self):
+        try:
+            Project.objects.get(id=self.project.id)
+        except Project.DoesNotExist:
+            return
+
+        assert False
+
+    def test_trying_to_remove_nonexistent_project_should_return_404(self):
+        request = self.factory.get('')
+        try:
+            remove_project(request, 123333)
+        except:
+            return
+
+        assert False
+
+
 
