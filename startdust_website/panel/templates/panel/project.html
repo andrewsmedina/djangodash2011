@@ -1,2 +1,15 @@
-{{ project.name }}
-{{ project.url }}
+{% extends "panel/base.html" %}
+
+{% block content %}
+    {{ project.name }}
+    {{ project.url }}
+
+    {% if project.set_errors %}
+        errors:
+        {% for error in  project.set_errors %}
+            {{ error.exception }} - {{ error.date}}
+        {% endfor %}
+    {% else %}
+        0 errors
+    {% endif %}
+{% endblock %}
