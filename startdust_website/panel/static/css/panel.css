@@ -16,6 +16,7 @@
 	border: none;
 	border-radius: 8px;
 	padding: 20px;
+	margin: 30px;
 }
 
 .add-project a {
@@ -28,6 +29,37 @@
 
 .add-project a:hover {
 	color: #fff;
+}
+
+.container h3 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #4B4B4B;
+}
+
+.projects ul {
+	margin: 20px 0px 0px 20px;
+	border-radius: 8px;
+}
+
+.projects li {
+	margin: 15px;
+	background-color: #EBEBEB;
+	border-radius: 8px;
+	padding:10px;
+}
+
+.projects a {
+	text-decoration: none;
+}
+
+.projects p {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.projects span {
+	font-weight: bold;
 }
 
 .footer-panel {

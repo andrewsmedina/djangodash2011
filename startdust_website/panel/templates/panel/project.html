@@ -1,24 +1,27 @@
 {% extends "panel/base.html" %}
 
 {% block content %}
-    {{ project.name }}
-    {{ project.url }}
+    <div class="container">
+        <h2>{{ project.name }}</h2>
+        {{ project.name }}
+        <p>{{ project.url }}</p>
 
-    {% if project.set_responses %}
-        responses:
-        {% for response in project.set_responses %}
-            {{ response.url }} - {{ response.time}}
+        {% if project.set_responses %}
+            responses:
+            {% for response in project.set_responses %}
+                {{ response.url }} - {{ response.time}}
+            {% endfor %}
+        {% else %}
+            0 responses
         {% endif %}
-    {% else %}
-        0 responses
-    {% endif %}
 
-    {% if project.set_errors %}
-        errors:
-        {% for error in  project.set_errors %}
-            {{ error.exception }} - {{ error.date}}
-        {% endfor %}
-    {% else %}
-        0 errors
-    {% endif %}
+        {% if project.set_errors %}
+            errors:
+            {% for error in  project.set_errors %}
+                {{ error.exception }} - {{ error.date}}
+            {% endfor %}
+        {% else %}
+            0 errors
+        {% endif %}
+    </div>
 {% endblock %}

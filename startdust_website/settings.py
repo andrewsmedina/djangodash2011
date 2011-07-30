@@ -165,3 +165,4 @@ LOGGING = {
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 TESTS_APPS = ('django_nose',)
 NOSE_ARGS = ['--quiet', "-sd", '--nologcapture', '--with-coverage', '--cover-erase']
+NOSE_ARGS.extend(['--cover-package=home', '--cover-package=panel', '--cover-package=errors', '--cover-package=project', '--cover-package=api'])
