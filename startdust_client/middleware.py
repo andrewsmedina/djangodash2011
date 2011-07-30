@@ -1,4 +1,4 @@
-from dispatchers import send_error_to_server
+from dispatchers import send_error_to_server, send_response_to_server
 from multiprocessing import Process
 from datetime import datetime
 
@@ -19,6 +19,8 @@ class StartDustMiddleware(object):
         request.start = datetime.now()
 
     def process_response(self, request, response):
+        url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
         end = datetime.now()
         time = end - request.start
+        send_response_to_server(url, time)
         return response
