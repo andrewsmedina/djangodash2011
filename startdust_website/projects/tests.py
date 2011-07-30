@@ -18,6 +18,7 @@ class ProjectModelTestCase(TestCase):
         self.project.delete()
 
     def test_create_project_with_yours_parameters(self):
-        expected_project = Project.objects.get(id = self.project.id)
+        expected_project = Project.objects.get(id=self.project.id)
         self.assertEqual(expected_project.name, self.project.name)
-
+        self.assertEqual(expected_project.url, self.project.url)
+        self.assertEqual(expected_project.token, self.project.token)
