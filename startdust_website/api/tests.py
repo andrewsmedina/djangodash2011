@@ -57,3 +57,48 @@ class ApiPostErrorViewTestCase(TestCase):
         response = add_error(request)
 
         self.assertTrue('post' in [method for method in response.items()[1]])
+
+    def test_api_error_should_returns_a_error_if_url_is_empty(self):
+        '''
+        api error post should returns a error if url is empty
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'url': '',
+            'traceback': 'some traceback',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(500, response.status_code)
+
+    def test_api_error_should_returns_a_error_if_exception_is_empty(self):
+        '''
+        api error post should returns a error if exception is empty
+        '''
+        post_data = {
+            'exception': '',
+            'url': 'http://someurl.com',
+            'traceback': 'some traceback',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(500, response.status_code)
+
+    def test_api_error_should_returns_a_error_if_traceback_is_empty(self):
+        '''
+        api error post should returns a error if traceback is empty
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'url': 'http://someurl.com',
+            'traceback': '',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(500, response.status_code)
