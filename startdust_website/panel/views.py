@@ -36,3 +36,8 @@ def add_project(request):
         form = ProjectForm()
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
+
+
+def remove_project(request, id_project):
+    get_object_or_404(Project, id=id_project).delete()
+    return HttpResponseRedirect('/panel/')
