@@ -68,7 +68,7 @@ class ProjectViewTestCase(TestCase):
         response = add_project(request)
         self.assertEqual(response.status_code, 302)
 
-    def test_dados_do_projetos_cadastrados_no_form_com_sucesso(self):
+    def test_registration_project_should_work_correctly(self):
         dados =  {'name':'Project of test',
                   'url': u'http://urlofprojecttest.com/',
                   'token': 'thistoken'}
@@ -80,7 +80,7 @@ class ProjectViewTestCase(TestCase):
         self.assertEqual(expected_project.url, dados['url'])
         self.assertEqual(expected_project.token, dados['token'])
 
-    def test_cadastrando_projetos_com_dados_invalidos(self):
+    def test_registration_project_with_invalid_data_should_return_errors(self):
         dados =  {'name':'',
                   'url': u'urlofprojecttest',
                   'token': ''}
