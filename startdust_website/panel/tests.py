@@ -108,3 +108,9 @@ class ShowProjectViewTestCase(TestCase):
 
     def test_show_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
+
+    def test_project_should_have_on_context_data(self):
+        expected_data = {'name': self.project.name,
+                         'url': self.project.url}
+
+        self.assertEqual(self.response.context_data['project'], expected_data)
