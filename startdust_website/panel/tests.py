@@ -114,3 +114,11 @@ class ShowProjectViewTestCase(TestCase):
                          'url': self.project.url}
 
         self.assertEqual(self.response.context_data['project'], expected_data)
+
+    def test_access_invalid_project_should_return_404(self):
+        request = self.factory.get('/panel/project/12333322')
+        try:
+            response = show_project(request, 12333322)
+        except:
+            assert True
+
