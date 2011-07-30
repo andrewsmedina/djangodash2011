@@ -1,26 +1,57 @@
 {% extends "panel/base.html" %}
 
+{% block flot %}
+    <!--[if lte IE 8]>
+        <script language="javascript" type="text/javascript" src="/static/js/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js" type="text/javascript"></script>
+    <script src="/static/js/jquery.flot.js" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var d1 = [];
+            for (var i = 0; i < 14; i += 0.5)
+                d1.push([i, Math.sin(i)]);
+
+
+            var d2 = [];
+            for (var i = 0; i < 14; i += 0.1)
+                d2.push([i, Math.sqrt(i * 10)]);
+                                
+            $.plot($("#placeholder"), [
+                {
+                    data: d1,
+                    lines: { show: true, fill: true }
+                },
+                {
+                    data: d2,
+                    lines: { show: true }
+                }
+            ]);
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="projects project">
             <h2>{{ project.name }}</h2>
             <p><span>URL: </span><a href="{{ project.url }}" target="_blank">{{ project.url }}</a></p>
 
-            {% if project.set_responses %}
+            {% if project.response_set.all %}
                 responses:
                 <ul>
-                    {% for response in project.set_responses %}
+                    {% for response in project.response_set.all %}
                         <li>{{ response.url }} - {{ response.time}}</li>
                     {% endfor %}
                 </ul>
             {% else %}
                 <p>0 responses</p>
             {% endif %}
-
-            {% if project.set_errors %}
+            
+            {% if project.error_set.all %}
                 errors:
                 <ul>
-                    {% for error in  project.set_errors %}
+                    {% for error in  project.error_set.all %}
                         <li>{{ error.exception }} - {{ error.date}}</li>
                     {% endfor %}
                 </ul>
@@ -28,5 +59,6 @@
                 <p>0 errors<p>
             {% endif %}
         </div>
+        <div id="placeholder" class="graph"></div>
     </div>
 {% endblock %}

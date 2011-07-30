@@ -1,4 +1,5 @@
 *.swp
+foo.json
 *.pyc
 *.db
 *.orig

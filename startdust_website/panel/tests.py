@@ -116,10 +116,7 @@ class ShowProjectViewTestCase(TestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_project_should_have_on_context_data(self):
-        expected_data = {'name': self.project.name,
-                         'url': self.project.url}
-
-        self.assertEqual(self.response.context_data['project'], expected_data)
+        self.assertEqual(self.project, self.response.context_data['project'])
 
     def test_access_invalid_project_should_return_404(self):
         request = self.factory.get('/panel/project/12333322')
