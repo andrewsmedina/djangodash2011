@@ -3,9 +3,17 @@
 {% block content %}
 <div class="container">
 	<h2>Panel</h2>
+
+    {% if projects %}
 	<div class="projects">
-		
+        {% for project in projects %}
+            {{ project.name}} - {{ project.url}} - {{ project.token }}
+        {% endfor %}
 	</div>
+    {% else %}
+        add a project please
+    {% endif %}
+
 	<div class="add-project">
 		<a href="/panel/projects/add/">Add your project</a>
 	</div>
