@@ -43,3 +43,14 @@ class ErrorModelTestCase(TestCase):
                 return
 
         assert False
+
+    def assertFieldIn(self, expected_field, field_list):
+        '''
+        assert if field in a field list
+        '''
+        for field in field_list:
+            if field.name == expected_field:
+                return
+        
+        assert False
+
