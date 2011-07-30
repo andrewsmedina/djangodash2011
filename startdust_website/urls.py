@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from panel.views import IndexView
+from home.views import IndexView
 
 urlpatterns = patterns('',
     # Examples:
