@@ -30,7 +30,7 @@ def add_project(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/panel/')
+            return HttpResponseRedirect('/panel/projects/%d' % form.instance.id)
 
     else:
         form = ProjectForm()
