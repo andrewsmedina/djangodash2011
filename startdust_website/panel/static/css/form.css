@@ -1,8 +1,20 @@
-.form {
-	margin-top: 30px;	
-}
-
 .form p {
 	font-size: 14px;
 	font-weight: normal;
+	margin: 7px 0px;
+}
+
+.form input {
+	border: 4px solid #ebebeb; 
+    border-radius: 8px 8px 8px 8px;
+    color: #555555;
+    padding: 10px;
+    width: 200px;
+}
+
+.form input[type=submit] {
+	width: 100px;
+	background-color: #a73636;
+	border: none;
+	color: #fff;
 }
