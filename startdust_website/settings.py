@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'panel',
     'registration',
     'django_nose',
+    'projects',
 )
 
 #django registration settings
