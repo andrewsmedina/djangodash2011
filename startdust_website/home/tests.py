@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
-from panel.views import IndexView
+from home.views import IndexView
 
 
 class IndexViewTestCase(TestCase):
@@ -9,8 +9,8 @@ class IndexViewTestCase(TestCase):
         request = RequestFactory().get('/')
         self.response = IndexView.as_view()(request)
 
-    def test_index_view_should_render_index_dot_html(self):
+    def test_index_view_should_render_base_dot_html(self):
         '''
-        index view should render panel/index.html
+        index view should render home/index.html
         '''
-        self.assertIn('panel/index.html', self.response.template_name)
+        self.assertIn('home/index.html', self.response.template_name)
