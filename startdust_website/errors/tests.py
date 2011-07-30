@@ -23,3 +23,23 @@ class ErrorModelTestCase(TestCase):
                 return
 
         assert False
+
+    def test_error_model_should_have_a_traceback_attribute(self):
+        '''
+        error model should have a traceback attribute
+        '''
+        for field in Error._meta.fields:
+            if field.name == 'traceback':
+                return
+
+        assert False
+
+    def test_error_model_should_have_a_exception_attribute(self):
+        '''
+        error model should have a exception attribute
+        '''
+        for field in Error._meta.fields:
+            if field.name == 'exception':
+                return
+
+        assert False

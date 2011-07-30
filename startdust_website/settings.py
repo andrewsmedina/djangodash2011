@@ -7,6 +7,12 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'your-email-host-here'
+EMAIL_HOST_USER = 'your-email-user-here'
+EMAIL_HOST_PASSWORD = 'your-email-password-here'
+EMAIL_PORT = 000
+
 MANAGERS = ADMINS
 
 DATABASES = {
