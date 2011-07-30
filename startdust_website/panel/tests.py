@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
 from errors.models import Error
-from panel.views import IndexView, add_project
+from panel.views import IndexView, add_project, show_project
 from projects.forms import ProjectForm
 from projects.models import Project
 
@@ -42,7 +42,7 @@ class IndexViewTestCase(TestCase):
         self.assertEqual(Error, self.response.context_data['errors'].model)
 
 
-class ProjectViewTestCase(TestCase):
+class AddProjectViewTestCase(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -94,3 +94,17 @@ class ProjectViewTestCase(TestCase):
         self.assertEqual(errors['name'], [u'This field is required.'])
         self.assertEqual(errors['token'], [u'This field is required.'])
         self.assertEqual(errors['url'], [u'Enter a valid URL.'])
+
+class ShowProjectViewTestCase(TestCase):
+
+    def setUp(self):
+        self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
+        self.factory = RequestFactory()
+        request = self.factory.get('/panel/projects/%d' % self.project.id)
+        self.response = show_project(request, self.project.id)
+
+    def tearDown(self):
+        self.project.delete()
+
+    def test_show_project_should_return_status_code_200(self):
+        self.assertEqual(self.response.status_code, 200)
