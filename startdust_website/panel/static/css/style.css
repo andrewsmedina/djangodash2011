@@ -15,11 +15,12 @@ body {
     background:url(../images/header/background.gif) repeat-x;
 }
 
-.header h1 {
+.header h1 a {
     color: #fff;
     font-size: 40px;
     font-weight: bold;
     line-height: 113px;
+    outline: none;
 }
 
 .menu {
@@ -60,6 +61,7 @@ body {
 
 .menu ul li:hover {
     background-color: #a73636;
+    outline: none;
 }
 
 .menu ul li a:hover {

@@ -15,6 +15,8 @@
 	background-color: #a73636;
 	border: none;
 	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
 	padding: 20px;
 	margin: 30px;
 }
@@ -37,25 +39,38 @@
 	color: #4B4B4B;
 }
 
+.projects.project {
+	margin-bottom: 30px;
+}
+
 .projects ul {
 	margin: 20px 0px 0px 20px;
-	border-radius: 8px;
 }
 
 .projects li {
 	margin: 15px;
 	background-color: #EBEBEB;
 	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
 	padding:10px;
 }
 
 .projects a {
-	text-decoration: none;
+	outline: none;
 }
 
 .projects p {
 	font-size: 14px;
 	font-weight: normal;
+}
+
+.projects p a {
+	color: #4b4b4b;
+}
+
+.projects p a:hover {
+	color: #a73636;
 }
 
 .projects span {

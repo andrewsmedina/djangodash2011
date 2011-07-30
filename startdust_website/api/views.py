@@ -1,7 +1,9 @@
 from django.http import HttpResponseNotAllowed, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from errors.forms import ErrorForm
 
 
+@csrf_exempt
 def add_error(request):
     if request.method == "POST":
         form = ErrorForm(request.POST)

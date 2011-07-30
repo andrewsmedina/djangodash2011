@@ -1,2 +1,2 @@
 test:
-	nosestests -s -v
+	nosetests -s -v

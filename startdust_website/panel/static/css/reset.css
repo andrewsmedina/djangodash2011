@@ -23,6 +23,7 @@ body {
 }
 a, a:hover{
 	text-decoration:none;
+	outline: none;
 }
 ol, ul, li{
 	list-style: none;
