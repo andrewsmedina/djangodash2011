@@ -37,6 +37,10 @@
 	color: #4B4B4B;
 }
 
+.projects.project {
+	margin-bottom: 30px;
+}
+
 .projects ul {
 	margin: 20px 0px 0px 20px;
 	border-radius: 8px;
@@ -56,6 +60,14 @@
 .projects p {
 	font-size: 14px;
 	font-weight: normal;
+}
+
+.projects p a {
+	color: #4b4b4b;
+}
+
+.projects p a:hover {
+	color: #a73636;
 }
 
 .projects span {
