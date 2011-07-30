@@ -22,6 +22,12 @@ class ResponseModelTestCase(TestCase):
         '''
         self.assertFieldIn('date', Response._meta.fields)
 
+    def test_response_should_be_related_with_project(self):
+        '''
+        Response should be related with Project
+        '''
+        self.assertFieldIn('project', Response._meta.fields)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list
