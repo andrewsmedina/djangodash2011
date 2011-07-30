@@ -118,6 +118,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'panel',
+    'errors',
+
     'registration',
     'django_nose',
 )
