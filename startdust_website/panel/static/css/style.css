@@ -105,7 +105,18 @@ body {
     margin-top: 30px;
 }
 
+.screenshots {
+    height:300px;    
+}
+
 .footer {
     background-color: #02313d;
     height: 118px;
+}
+
+.footer p {
+    color: #fff;
+    font-size: 12px;
+    float: right;
+    line-height: 105px;
 }
