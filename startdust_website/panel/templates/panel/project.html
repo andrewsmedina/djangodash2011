@@ -6,21 +6,21 @@
             <h2>{{ project.name }}</h2>
             <p><span>URL: </span><a href="{{ project.url }}" target="_blank">{{ project.url }}</a></p>
 
-            {% if project.set_responses %}
+            {% if project.response_set.all %}
                 responses:
                 <ul>
-                    {% for response in project.set_responses %}
+                    {% for response in project.response_set.all %}
                         <li>{{ response.url }} - {{ response.time}}</li>
                     {% endfor %}
                 </ul>
             {% else %}
                 <p>0 responses</p>
             {% endif %}
-
-            {% if project.set_errors %}
+            
+            {% if project.error_set.all %}
                 errors:
                 <ul>
-                    {% for error in  project.set_errors %}
+                    {% for error in  project.error_set.all %}
                         <li>{{ error.exception }} - {{ error.date}}</li>
                     {% endfor %}
                 </ul>
