@@ -2,13 +2,20 @@
 
 {% block content %}
 <div class="container">
-	<h2>Panel</h2>
+	<h2>Panel Applications</h2>
 
     {% if projects %}
 	<div class="projects">
-        {% for project in projects %}
-            {{ project.name}} - {{ project.url}} - {{ project.token }}
-        {% endfor %}
+        <h3>Your projects</h3>
+        <ul>
+            {% for project in projects %}
+                <li>
+                    <p><span>Project name: </span>{{ project.name}}</p>
+                    <p><span>URL: </span>{{ project.url}}</p>
+                    <p><span>Token: </span>{{ project.token }}</p>
+                </li>
+            {% endfor %}
+        </ul>
 	</div>
     {% else %}
         add a project please
