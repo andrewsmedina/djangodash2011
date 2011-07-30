@@ -13,4 +13,4 @@ class IndexViewTestCase(TestCase):
         '''
         index view should render panel/base.html
         '''
-        self.assertIn('panel/base.html', self.response.template_name)
+        self.assertIn('panel/index.html', self.response.template_name)
