@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from projects.forms import ProjectForm
-from errors.models import Error
+from projects.models import Project
 
 
 class IndexView(TemplateView):
@@ -10,7 +10,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['errors'] = Error.objects.all()
+        context['projects'] = Project.objects.all()
         return context
 
 def show_project(request, id_project):
