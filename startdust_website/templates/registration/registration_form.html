@@ -1,8 +1,14 @@
 {% extends "panel/base.html" %}
 
+{% block form %}
+	<link rel="stylesheet" href="/static/css/form.css" type="text/css" />  
+{% endblock %}
+
 {% block content %}
-    <form method="post" action="">
-        {{ form.as_p }}
-        <p><input type="submit" value="Register" /></p>
-    </form>
+	<div class="form">
+	    <form method="post" action="">
+	        {{ form.as_p }}
+	        <p><input type="submit" value="Register" /></p>
+	    </form>
+    </div>
 {% endblock %}
