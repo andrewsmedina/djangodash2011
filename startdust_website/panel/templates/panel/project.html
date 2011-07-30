@@ -8,7 +8,7 @@
         responses:
         {% for response in project.set_responses %}
             {{ response.url }} - {{ response.time}}
-        {% endif %}
+        {% endfor %}
     {% else %}
         0 responses
     {% endif %}
