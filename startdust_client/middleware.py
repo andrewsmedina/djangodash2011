@@ -1,5 +1,6 @@
 from dispatchers import send_error_to_server
 from multiprocessing import Process
+from datetime import datetime
 
 import traceback
 import sys
@@ -13,3 +14,11 @@ class StartDustMiddleware(object):
         trace = '\n'.join(traceback.format_exception(*(exc_info or sys.exc_info())))
         proccess = Process(target=send_error_to_server, args=(exception.message, url, trace))
         proccess.start()
+
+    def process_request(self, request):
+        request.start = datetime.now()
+
+    def process_response(self, request, response):
+        end = datetime.now()
+        time = end - request.start
+        return response
