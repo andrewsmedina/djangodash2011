@@ -1,0 +1,2 @@
+test:
+	nosestests -s -v
