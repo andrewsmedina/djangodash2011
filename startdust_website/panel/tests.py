@@ -80,4 +80,18 @@ class ProjectViewTestCase(TestCase):
         self.assertEqual(expected_project.url, dados['url'])
         self.assertEqual(expected_project.token, dados['token'])
 
+    def test_cadastrando_projetos_com_dados_invalidos(self):
+        dados =  {'name':'',
+                  'url': u'urlofprojecttest',
+                  'token': ''}
+        request = self.factory.post('/painel/projects/add/', dados)
+        response = add_project(request)
+
+        self.assertFalse(response.context_data['form'].is_valid())
+
+        errors = response.context_data['form'].errors
+
+        self.assertEqual(errors['name'], [u'This field is required.'])
+        self.assertEqual(errors['token'], [u'This field is required.'])
+        self.assertEqual(errors['url'], [u'Enter a valid URL.'])
 
