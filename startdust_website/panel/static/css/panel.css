@@ -39,7 +39,6 @@
 
 .projects ul {
 	margin: 20px 0px 0px 20px;
-	/*border: 4px solid #EBEBEB;*/
 	border-radius: 8px;
 }
 
@@ -48,6 +47,10 @@
 	background-color: #EBEBEB;
 	border-radius: 8px;
 	padding:10px;
+}
+
+.projects a {
+	text-decoration: none;
 }
 
 .projects p {
