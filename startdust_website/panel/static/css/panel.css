@@ -17,6 +17,8 @@
 	border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
+	position: relative;
+	behavior: url(/static/pie/PIE.htc);
 	padding: 20px;
 	margin: 30px;
 }
@@ -53,6 +55,8 @@
 	border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
+	position: relative;
+	behavior: url(/static/pie/PIE.htc);
 	padding:10px;
 }
 
