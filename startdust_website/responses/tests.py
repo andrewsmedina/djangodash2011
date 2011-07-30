@@ -1,16 +1,17 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from responses.models import Response
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class ResponseModelTestCase(TestCase):
+
+    def test_response_model_should_have_time_attribute(self):
+        '''
+        Response model should have time attribute
+        '''
+        self.assertFieldIn('time', Response._meta.fields)
+
+    def assertFieldIn(self, expected_field, field_list):
+        '''
+        assert if field in a field list
+        '''
+        self.assertTrue(expected_field in [field.name for field in field_list])
