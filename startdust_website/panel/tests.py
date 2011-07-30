@@ -10,11 +10,19 @@ class IndexViewTestCase(TestCase):
         request = RequestFactory().get('/')
         self.response = IndexView.as_view()(request)
 
-    def test_index_view_should_render_base_dot_html(self):
+    def test_index_view_should_render_index_dot_html(self):
         '''
-        index view should render panel/base.html
+        index view should render panel/index.html
         '''
         self.assertIn('panel/index.html', self.response.template_name)
+
+    def test_index_url_should_be_returns_200_how_status_code(self):
+        '''
+        url for index view should be returns 200 in status code
+        '''
+        response = self.client.get('/panel/')
+        self.assertEqual(200, response.status_code)
+
 
 class ProjectViewTestCase(TestCase):
 
@@ -31,5 +39,6 @@ class ProjectViewTestCase(TestCase):
 
     def test_add_project_should_have_form_fields_on_rendered_content(self):
         self.assertTrue(self.response.rendered_content)
+
 
 
