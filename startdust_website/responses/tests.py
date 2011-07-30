@@ -10,6 +10,12 @@ class ResponseModelTestCase(TestCase):
         '''
         self.assertFieldIn('time', Response._meta.fields)
 
+    def test_response_model_should_have_url_attribute(self):
+        '''
+        Response model should have url attribute
+        '''
+        self.assertFieldIn('url', Response._meta.fields)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list
