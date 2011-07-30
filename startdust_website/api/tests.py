@@ -102,3 +102,45 @@ class ApiPostErrorViewTestCase(TestCase):
         response = add_error(request)
 
         self.assertEqual(500, response.status_code)
+
+    def test_api_error_should_returns_a_error_if_url_isnt_in_post_dict(self):
+        '''i
+        api error post should returns a error if url isnt in post dict
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'traceback': 'some traceback',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(500, response.status_code)
+
+    def test_api_error_should_returns_a_error_if_exception_isnot_in_post_dict(self):
+        '''
+        api error post should returns a error if exception isnot in post dict
+        '''
+        post_data = {
+            'url': 'http://someurl.com',
+            'traceback': 'some traceback',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(500, response.status_code)
+
+    def test_api_error_should_returns_a_error_if_traceback_isnot_in_post_dict(self):
+        '''
+        api error post should returns a error if traceback isnot in post dict
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'url': 'http://someurl.com',
+        }
+
+        request = RequestFactory().post('/api/errors/', post_data)
+        response = add_error(request)
+
+        self.assertEqual(500, response.status_code)
