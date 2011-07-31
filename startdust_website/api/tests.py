@@ -169,6 +169,7 @@ class ApiResponseTestCase(TestCase):
         post_data = {
             'time': 0.1123,
             'url': 'http://someurl.com',
+            'token': '123',
         }
 
         response = self.client.post('/api/response/', post_data, **self.extra)
@@ -185,6 +186,7 @@ class ApiResponseTestCase(TestCase):
         post_data = {
             'time': 0.1123,
             'url': 'http://someurl.com',
+            'token': '123',
         }
 
         response = self.client.post('/api/response/', post_data, **self.extra)
