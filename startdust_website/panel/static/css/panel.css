@@ -39,6 +39,11 @@
 	width: 95px;
 }
 
+.button.login-again {
+	width: 85px;
+	margin-left: 0px;	
+}
+
 .container h3 {
 	font-size: 18px;
 	font-weight: bold;
