@@ -157,3 +157,17 @@ class ApiResponseTestCase(TestCase):
         response = self.client.post('/api/response/', post_data)
         self.assertEqual(200, response.status_code)
 
+    def test_should_returns_405_when_the_method_isnt_post(self):
+        '''
+        request api should returns 405 status code when method isnt a post
+        '''
+        response = self.client.get('/api/response/')
+        self.assertEqual(405, response.status_code)
+
+    def test_should_returns_methods_allowed_when_the_method_isnt_post(self):
+        '''
+        request api should returns 405 status code when method inst a post
+        and returns post in method allowed
+        '''
+        response = self.client.get('/api/response/')
+        self.assertTrue('POST' in [method for method in response.items()[2]])
