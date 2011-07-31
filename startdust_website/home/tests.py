@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
-from home.views import IndexView, DocsView
+from home.views import IndexView, DocsView, FeaturesView
 
 
 class IndexViewTestCase(TestCase):
