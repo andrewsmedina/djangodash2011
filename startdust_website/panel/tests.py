@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
@@ -5,6 +6,7 @@ from django.contrib.auth.models import User
 from panel.views import IndexView
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
+from errors.models import Error
 
 
 class IndexViewTestCase(TestCase):
@@ -218,3 +220,36 @@ class ChangeProjectViewTestCase(TestCase):
         self.assertEqual(expected_project.token, self.project.token)
         self.assertEqual(expected_project.name, project_data['name'])
         self.assertEqual(expected_project.url, project_data['url'])
+
+
+class ErrorViewTestCase(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
+        self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
+        self.error = Error.objects.create(
+            date=datetime.now(),
+            exception='exception',
+            traceback='traceback',
+            url='http://error/url',
+            project=self.project
+        )
+        self.response = self.client.get('/panel/projects/%d/error/%d/' % (self.project.id, self.error.id))
+
+    def tearDown(self):
+        self.user.delete()
+        self.error.delete()
+        self.project.delete()
+
+    def test_error_view_should_render_template_error_html(self):
+        self.assertIn('panel/error.html', self.response.template_name)
+
+    def test_error_url_should_be_returns_200_how_status_code(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_show_error_should_include_error_in_context(self):
+        self.assertIn('error', self.response.context_data)
+

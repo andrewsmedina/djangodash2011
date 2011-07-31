@@ -55,3 +55,7 @@ def change_project(request, id_project):
         form = UpdateProjectForm(instance=project)
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
+
+def show_error(request, id_project, id_error):
+    error = get_object_or_404(Error, id=id_error)
+    return TemplateResponse(request, 'panel/error.html', {'error': error})
