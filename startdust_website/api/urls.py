@@ -1,10 +1,14 @@
 from django.conf.urls.defaults import patterns, include, url
 from piston.resource import Resource
+from piston.authentication import HttpBasicAuthentication
 from api.handlers import ErrorHandler, ResponseHandler
 
 
-error_resource = Resource(handler=ErrorHandler)
-response_resource = Resource(handler=ResponseHandler)
+auth = HttpBasicAuthentication(realm="stardust")
+ad = {'authentication': auth}
+
+error_resource = Resource(handler=ErrorHandler, **ad)
+response_resource = Resource(handler=ResponseHandler, **ad)
 
 error_resource.csrf_exempt = True
 response_resource.csrf_exempt = True
