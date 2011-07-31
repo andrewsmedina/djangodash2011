@@ -1,5 +1,6 @@
 from django.test import TestCase
 from errors.models import Error
+from responses.models import Response
 
 
 class ApiErrorTestCase(TestCase):
@@ -124,3 +125,22 @@ class ApiErrorTestCase(TestCase):
 
         response = self.client.post('/api/error/', post_data)
         self.assertEqual(500, response.status_code)
+
+
+class ApiResponseTestCase(TestCase):
+
+    def test_api_response_view_should_add_a_response(self):
+        '''
+        api response post should add response
+        '''
+        post_data = {
+            'time': 1123,
+            'url': 'http://someurl.com',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        
+        try:
+            Response.objects.get(time=post_data['time'])
+        except Response.DoesNotExist:
+            assert False

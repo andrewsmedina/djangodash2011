@@ -4,7 +4,7 @@ from responses.forms import ResponseForm
 
 
 class ResponseFormTestCase(TestCase):
-    
+
     def test_response_form_should_use_response_model(self):
         '''
         response form should use response model
