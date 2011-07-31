@@ -23,6 +23,9 @@ class StartDustMiddleware(object):
         proccess.start()
 
     def process_request(self, request):
+        url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
+        proccess = Process(target=self.dispatcher.send_request, args=(url,))
+        proccess.start()
         request.start = datetime.now()
 
     def process_response(self, request, response):
