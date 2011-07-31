@@ -27,7 +27,7 @@
             <h2>{{ project.name }}</h2>
             <p>URL: <span>{{ project.url }}</span></p>
             <div class="line"></div>
-            <p>Average request time (request/minute)</p>
+            <p>Response time (by url)</p>
             <div id="placeholder" class="graph"></div>
             <div class="row">
                 <div class="column grid_6">
@@ -46,7 +46,7 @@
                 <div class="column grid_6">
                     <div class="line grid_6"></div>
                     {% if project.response_set.all %}
-                        <p>Responses:</p>
+                        <p>Average response time by url:</p>
                         <ul>
                             {% for response in project.response_set.all %}
                             <li><a href="{{ response.get_absolute_url }}">{{ response.url }} - {{ response.time }} - {{ response.date }}</a></li>
