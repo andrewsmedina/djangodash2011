@@ -144,3 +144,16 @@ class ApiResponseTestCase(TestCase):
             Response.objects.get(time=post_data['time'])
         except Response.DoesNotExist:
             assert False
+
+    def test_request_api_view_should_returns_200(self):
+        '''
+        request api should returns 200 if response is added
+        '''
+        post_data = {
+            'time': 1123,
+            'url': 'http://someurl.com',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(200, response.status_code)
+
