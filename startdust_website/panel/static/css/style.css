@@ -81,10 +81,17 @@ body {
 }
 
 .container p {
+    font-size: 16px;
+    color: #4b4b4b;
+    margin: 10px 0px;
+}
+
+.content.description p {
     color: #4b4b4b;
     font-weight: bold;
     font-size: 28px;
     line-height: 28px;
+    margin: 0px;
 }
 
 .container .content {
@@ -128,5 +135,9 @@ body {
     color: #fff;
     font-size: 12px;
     float: right;
-    line-height: 105px;
+    line-height: 118px;
+}
+.clear {
+    width: 960px;
+    height: 100px;
 }

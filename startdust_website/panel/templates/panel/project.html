@@ -8,9 +8,18 @@
     <script src="/static/js/jquery.flot.js" type="text/javascript" language="javascript"></script>
     <script>
        $(function () {
+            var response = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
+
             var request = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
 
-            $.plot($("#placeholder"), [request], {
+            $.plot($("#response-time"), [response], {
+                xaxis: {
+                    mode: "time",
+                    timeformat: "%M"
+                }
+            });
+
+            $.plot($("#request-time"), [response], {
                 xaxis: {
                     mode: "time",
                     timeformat: "%M"
@@ -27,8 +36,16 @@
             <h2>{{ project.name }}</h2>
             <p>URL: <span>{{ project.url }}</span></p>
             <div class="line"></div>
-            <p>Response time (by url)</p>
-            <div id="placeholder" class="graph"></div>
+            <div class="row">
+                <div class="column grid_8">
+                    <p>Response time (by url)</p>
+                    <div id="response-time" class="response-graph"></div>
+                </div>
+                <div class="column grid_4">
+                    <p>Request time (by url)</p>
+                    <div id="request-time" class="request_graph"></div>
+                </div>
+            </div>
             <div class="row">
                 <div class="column grid_6">
                     <div class="line grid_6"></div>
