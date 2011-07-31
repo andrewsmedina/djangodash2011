@@ -4,10 +4,11 @@ from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count, Sum
+from django.db.models import Count
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
+from requests.models import Request
 
 class IndexView(TemplateView):
     template_name = 'panel/index.html'
@@ -21,7 +22,8 @@ class IndexView(TemplateView):
 def show_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
     errors = Error.objects.filter(project=project.id).annotate(count_exception=Count('exception'))
-    return TemplateResponse(request, 'panel/project.html', {'project': project, 'errors': errors})
+    requests = Request.objects.filter(project=project.id).annotate(quant=Count('date'))
+    return TemplateResponse(request, 'panel/project.html', {'project': project, 'errors': errors, 'requests': requests})
 
 @login_required
 def add_project(request):
@@ -69,4 +71,3 @@ def show_similar_errors(request, id_project, id_error):
     error = get_object_or_404(Error, id=id_error)
     similar_errors = Error.objects.filter(url=error.url, exception=error.exception).exclude(id=error.id)
     return TemplateResponse(request, 'panel/similar_errors.html', {'errors': similar_errors})
-

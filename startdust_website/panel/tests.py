@@ -7,6 +7,7 @@ from panel.views import IndexView
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
+from requests.models import Request
 
 
 class IndexViewTestCase(TestCase):
@@ -162,6 +163,14 @@ class ShowProjectViewTestCase(TestCase):
         self.assertEqual(self.error, self.response.context_data['errors'][1])
         error.delete()
 
+    def test_show_project_should_include_requests_in_context(self):
+        self.assertIn('requests', self.response.context_data)
+
+    def test_requests_on_show_project_should_have_one_request_on_time(self):
+        request = Request.objects.create(url=u'http://123teste.com/addd/', project=self.project)
+        response = self.client.get('/panel/projects/%d/' % self.project.id)
+        self.assertEqual(request.date, response.context_data['requests'][0].date)
+        self.assertEqual(1, response.context_data['requests'][0].quant)
 
 class RemoveProjectViewTestCase(TestCase):
 
