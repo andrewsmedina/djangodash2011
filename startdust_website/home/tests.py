@@ -41,3 +41,23 @@ class DocsViewTestCase(TestCase):
         '''
         response = self.client.get('/docs/')
         self.assertEqual(200, response.status_code)
+
+
+class FeaturesViewTestCase(TestCase):
+
+    def setUp(self):
+        request = RequestFactory().get('/')
+        self.response = FeaturesView.as_view()(request)
+
+    def test_features_view_should_render_home_dot_html(self):
+        '''
+        features view should render home/features.html
+        '''
+        self.assertIn('home/features.html', self.response.template_name)
+
+    def test_features_url_should_be_returns_200_how_status_code(self):
+        '''
+        url for features view should be returns 200 in status code
+        '''
+        response = self.client.get('/features/')
+        self.assertEqual(200, response.status_code)
