@@ -52,7 +52,10 @@ class IndexViewTestCase(TestCase):
 class AddProjectViewTestCase(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(username='test', password='test', email='test@test.com')
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
         self.factory = RequestFactory()
         request = self.factory.get('/painel/projects/add/')
         request.user = self.user
@@ -71,20 +74,15 @@ class AddProjectViewTestCase(TestCase):
         self.assertTrue(self.response.rendered_content)
 
     def test_add_project_post_should_return_status_code_302(self):
-        request = self.factory.post('/painel/projects/add/', {'name': 'Project of test',
+        response = self.client.post('/panel/projects/add/', {'name': 'Project of test',
                                                               'url': 'http://urlofprojecttest.com'})
-        request.user = self.user
-        response = add_project(request)
         self.assertEqual(response.status_code, 302)
 
     def test_registration_project_should_work_correctly(self):
         dados = {'name': 'Project of test',
                   'url': u'http://urlofprojecttest.com/'}
 
-        request = self.factory.post('/painel/projects/add/', dados)
-        request.user = self.user
-        response = add_project(request)
-
+        response = self.client.post('/panel/projects/add/', dados)
         expected_project = Project.objects.get(name=dados['name'])
 
         self.assertEqual(expected_project.url, dados['url'])
@@ -94,10 +92,7 @@ class AddProjectViewTestCase(TestCase):
     def test_registration_project_with_invalid_data_should_return_errors(self):
         dados = {'name': '',
                   'url': u'urlofprojecttest'}
-        request = self.factory.post('/painel/projects/add/', dados)
-        request.user = self.user
-        response = add_project(request)
-
+        response = self.client.post('/panel/projects/add/', dados)
         self.assertFalse(response.context_data['form'].is_valid())
 
         errors = response.context_data['form'].errors
@@ -108,7 +103,10 @@ class AddProjectViewTestCase(TestCase):
 class ShowProjectViewTestCase(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(username='test', password='test', email='test@test.com')
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
         self.factory = RequestFactory()
         request = self.factory.get('/panel/projects/%d' % self.project.id)
@@ -126,10 +124,8 @@ class ShowProjectViewTestCase(TestCase):
         self.assertEqual(self.project, self.response.context_data['project'])
 
     def test_access_invalid_project_should_return_404(self):
-        request = self.factory.get('/panel/project/12333322')
-        request.user = self.user
         try:
-            show_project(request, 12333322)
+            self.client.get('/panel/project/12333322/')
         except:
             return
 
@@ -139,7 +135,10 @@ class ShowProjectViewTestCase(TestCase):
 class RemoveProjectViewTestCase(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(username='test', password='test', email='test@test.com')
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='project teste', url='projeto de teste', token='123213123213')
         self.factory = RequestFactory()
         request = self.factory.get('')
@@ -162,10 +161,8 @@ class RemoveProjectViewTestCase(TestCase):
         assert False
 
     def test_trying_to_remove_nonexistent_project_should_return_404(self):
-        request = self.factory.get('')
-        request.user = self.user
         try:
-            remove_project(request, 123333)
+            self.client.get('/panel/projects/1234522/delete/')
         except:
             return
 
@@ -175,7 +172,10 @@ class RemoveProjectViewTestCase(TestCase):
 class ChangeProjectViewTestCase(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(username='test', password='test', email='test@test.com')
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='project of teste', url='http://urlqq.com', token='123333444555')
         self.factory = RequestFactory()
         request = self.factory.get('/panel/project/%d/change/' % self.project.id)
@@ -203,9 +203,7 @@ class ChangeProjectViewTestCase(TestCase):
     def test_project_data_should_changed_correctly(self):
         project_data =  {'name': 'other test name',
                          'url': u'http://otherurl.com/'}
-        request = self.factory.post('/panel/projects/%d/change/' % self.project.id, project_data)
-        request.user = self.user
-        response = change_project(request, self.project.id)
+        response = self.client.post('/panel/projects/%d/update/' % self.project.id, project_data)
 
         expected_project = Project.objects.get(id=self.project.id)
 
