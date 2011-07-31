@@ -1,4 +1,5 @@
 from uuid import uuid4
+import datetime
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
@@ -72,3 +73,8 @@ def show_similar_errors(request, id_project, id_error):
     error = get_object_or_404(Error, id=id_error)
     similar_errors = Error.objects.filter(url=error.url, exception=error.exception).exclude(id=error.id)
     return TemplateResponse(request, 'panel/similar_errors.html', {'errors': similar_errors})
+
+@login_required
+def show_requests(request, id_project, day, month, year, hour, minute):
+    requests = Request.objects.filter()
+    return TemplateResponse(request, 'panel/requests.html', {'requests': requests})
