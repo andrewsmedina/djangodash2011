@@ -9,7 +9,7 @@ class Error(models.Model):
     url = models.URLField(verify_exists=False)
     traceback = models.TextField()
     exception = models.CharField(max_length=255)
-    project = models.ForeignKey(Project, null=True, editable=False) #will be change this
+    project = models.ForeignKey(Project, null=True, editable=False)
 
     def __unicode__(self):
         return self.exception

@@ -32,6 +32,7 @@ class ApiErrorTestCase(TestCase):
             'exception': 'some exception',
             'url': 'http://someurl.com',
             'traceback': 'some traceback',
+            'token': '123',
         }
 
         self.client.post('/api/error/', post_data, **self.extra)
@@ -49,6 +50,7 @@ class ApiErrorTestCase(TestCase):
             'exception': 'some exception',
             'url': 'http://someurl.com',
             'traceback': 'some traceback',
+            'token': '123',
         }
 
         response = self.client.post('/api/error/', post_data, **self.extra)
