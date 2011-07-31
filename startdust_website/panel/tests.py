@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
-from panel.views import IndexView, add_project, show_project, remove_project, change_project
+from panel.views import IndexView
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 
@@ -61,8 +61,14 @@ class AddProjectViewTestCase(TestCase):
     def tearDown(self):
         Project.objects.all().delete()
 
+    def test_add_project_view_should_render_template_project_form(self):
+        self.assertIn('panel/project_form.html', self.response.template_name)
+
     def test_add_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
+
+    def test_add_project_should_include_form_in_cotext(self):
+        self.assertIn('form', self.response.context_data)
 
     def test_add_project_should_have_form_on_context(self):
         self.assertEqual(self.response.context_data['form'].__class__, ProjectForm)
@@ -112,8 +118,14 @@ class ShowProjectViewTestCase(TestCase):
         self.project.delete()
         self.user.delete()
 
+    def test_show_project_view_should_render_template_project(self):
+        self.assertIn('panel/project.html', self.response.template_name)
+
     def test_show_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
+
+    def test_show_project_should_include_project_in_cotext(self):
+        self.assertIn('project', self.response.context_data)
 
     def test_project_should_have_on_context_data(self):
         self.assertEqual(self.project, self.response.context_data['project'])
@@ -175,8 +187,14 @@ class ChangeProjectViewTestCase(TestCase):
         self.project.delete()
         self.user.delete()
 
+    def test_change_project_view_should_render_template_project_form(self):
+        self.assertIn('panel/project_form.html', self.response.template_name)
+
     def test_change_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
+
+    def test_change_project_should_form_in_cotext(self):
+        self.assertIn('form', self.response.context_data)
 
     def test_add_project_should_have_form_on_context(self):
         self.assertEqual(self.response.context_data['form'].__class__, UpdateProjectForm)
