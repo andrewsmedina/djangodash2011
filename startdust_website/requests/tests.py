@@ -10,6 +10,12 @@ class RequestModelTestCase(TestCase):
         '''
         self.assertFieldIn('url', Request._meta.fields)
 
+    def test_request_model_should_have_date_attribute(self):
+        '''
+        Request model should have date attribute
+        '''
+        self.assertFieldIn('date', Request._meta.fields)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list
