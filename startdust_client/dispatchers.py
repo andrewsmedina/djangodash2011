@@ -8,9 +8,10 @@ STARDUST_URL = 'http://localhost:8000/api'
 
 class Dispatcher(object):
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, token):
         self.username = username
         self.password = password
+        self.token = token
 
     def authenticate(self, url):
         '''
@@ -27,6 +28,7 @@ class Dispatcher(object):
         send a post to url
         '''
         request = self.authenticate(url)
+        post_dict.update({'token': self.token})
         post_dict = urllib.urlencode(post_dict)
         response = urllib2.urlopen(request, post_dict).read()
         return response
