@@ -62,5 +62,11 @@ def change_project(request, id_project):
 @login_required
 def show_error(request, id_project, id_error):
     error = get_object_or_404(Error, id=id_error)
+    return TemplateResponse(request, 'panel/error.html', {'error': error})
+
+@login_required
+def show_similar_errors(request, id_project, id_error):
+    error = get_object_or_404(Error, id=id_error)
     similar_errors = Error.objects.filter(url=error.url, exception=error.exception).exclude(id=error.id)
-    return TemplateResponse(request, 'panel/error.html', {'error': error, 'similar_errors': similar_errors})
+    return TemplateResponse(request, 'panel/similar_errors.html', {'errors': similar_errors})
+
