@@ -57,3 +57,14 @@ class Dispatcher(object):
 
         response_url = '%s/response/' % STARDUST_URL
         return self.send(response_url, post_dict)
+
+    def send_request(self, url):
+        '''
+        send request to startdust server
+        '''
+        post_dict = {
+            'url': url,
+        }
+
+        request_url = '%s/request/' % STARDUST_URL
+        return self.send(request_url, post_dict)
