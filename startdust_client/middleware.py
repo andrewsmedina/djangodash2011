@@ -12,7 +12,8 @@ class StartDustMiddleware(object):
     def __init__(self):
         username = settings.STARDUST_USERNAME
         password = settings.STARDUST_PASSWORD
-        self.dispatcher = Dispatcher(username, password)
+        token = settings.STARDUST_PROJECT_TOKEN
+        self.dispatcher = Dispatcher(username, password, token)
 
     def process_exception(self, request, exception):
         url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)

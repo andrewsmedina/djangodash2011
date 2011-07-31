@@ -7,7 +7,7 @@ from projects.models import Project
 import base64
 
 
-class ApiErrorTestCase(TestCase):
+class ApiTestCase(TestCase):
 
     def setUp(self):
         self.user = User(username='username')
@@ -21,8 +21,18 @@ class ApiErrorTestCase(TestCase):
             'HTTP_AUTHORIZATION': auth,
         }
 
+        self.project = Project.objects.create(
+            name='project name',
+            url='http://projecturl.com',
+            token='123'
+        )
+ 
     def tearDown(self):
+        self.project.delete()
         self.user.delete()
+
+
+class ApiErrorTestCase(ApiTestCase):
 
     def test_api_error_post_view_should_add_a_error(self):
         '''
@@ -32,6 +42,7 @@ class ApiErrorTestCase(TestCase):
             'exception': 'some exception',
             'url': 'http://someurl.com',
             'traceback': 'some traceback',
+            'token': '123',
         }
 
         self.client.post('/api/error/', post_data, **self.extra)
@@ -49,10 +60,28 @@ class ApiErrorTestCase(TestCase):
             'exception': 'some exception',
             'url': 'http://someurl.com',
             'traceback': 'some traceback',
+            'token': '123',
         }
 
         response = self.client.post('/api/error/', post_data, **self.extra)
         self.assertEqual(200, response.status_code)
+
+    def test_api_error_view_should_create_a_relation_between_error_and_project(self):
+        '''
+        api error should create a realtionship between error and project
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'url': 'http://someurl.com',
+            'traceback': 'some traceback',
+            'token': '123',
+        }
+
+        response = self.client.post('/api/error/', post_data, **self.extra)
+        
+        project = Error.objects.get(exception=post_data['exception']).project
+        self.assertTrue(project)
+
 
     def test_add_error_should_returns_405_when_the_method_isnt_post(self):
         '''
@@ -146,29 +175,7 @@ class ApiErrorTestCase(TestCase):
         self.assertEqual(500, response.status_code)
 
 
-class ApiResponseTestCase(TestCase):
-
-    def setUp(self):
-        self.user = User(username='username')
-        self.user.set_password('password')
-        self.user.save()
-
-        auth = '%s:%s' % ('username', 'password')
-        auth = 'Basic %s' % base64.encodestring(auth)
-        auth = auth.strip()
-        self.extra = {
-            'HTTP_AUTHORIZATION': auth,
-        }
-
-        self.project = Project.objects.create(
-            name='project name',
-            url='http://projecturl.com',
-            token='123'
-        )
-
-    def tearDown(self):
-        self.project.delete()
-        self.user.delete()
+class ApiResponseTestCase(ApiTestCase):
 
     def test_api_response_view_should_add_a_response(self):
         '''

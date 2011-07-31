@@ -34,7 +34,9 @@ class ErrorHandler(BaseHandler):
             form = ErrorForm(request.POST)
 
             if form.is_valid():
-                form.save()
+                instance = form.save()
+                instance.project = Project.objects.get(token=form.cleaned_data['token'])
+                instance.save()
                 return HttpResponse('error added with success!')
             else:
                 return HttpResponse('', status=500)
