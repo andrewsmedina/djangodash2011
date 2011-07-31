@@ -37,6 +37,12 @@ class ResponseModelTestCase(TestCase):
         '''
         self.assertFieldIn('project', Response._meta.fields)
 
+    def test_response_should_be_ordered_by_date_asc(self):
+        '''
+        Response should be ordered by date
+        '''
+        self.assertIn('date', Response._meta.ordering)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list
