@@ -7,11 +7,17 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js" type="text/javascript"></script>
     <script src="/static/js/jquery.flot.js" type="text/javascript" language="javascript"></script>
     <script>
-        $(function () {
-            //var request = [[1, 3], [3, 5], [4, 5.6], [8, 6], [10, 6.1], [11, 8], [15, 8.9], [16, 10.2], [17, 13]];       
+       $(function () {
             var request = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
-            $.plot($("#placeholder"), [ request ]);
-        });
+
+            $.plot($("#placeholder"), [request], {
+                xaxis: {
+                    mode: "time",
+                    timeformat: "%M"
+                }
+            });
+       });
+
     </script>
 {% endblock %}
 
@@ -43,11 +49,7 @@
                         <p>Responses:</p>
                         <ul>
                             {% for response in project.response_set.all %}
-<<<<<<< HEAD
-                            <li><a href{{ response.url }} - {{ response.time}} - {{ response.date}}</li>
-=======
                             <li>{{ response.url }} - {{ response.time }} - {{ response.date }}</li>
->>>>>>> 6b1a8a4ecf8b873580cbbfe5b7e6acfe8a1167f1
                             {% endfor %}
                         </ul>
                     {% else %}
