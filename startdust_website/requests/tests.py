@@ -22,6 +22,12 @@ class RequestModelTestCase(TestCase):
         '''
         self.assertFieldIn('project', Request._meta.fields)
 
+    def test_request_should_be_ordered_by_date(self):
+        '''
+        Request model should be ordered by date
+        '''
+        self.assertIn('date', Request._meta.ordering)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list
