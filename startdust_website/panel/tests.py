@@ -362,3 +362,32 @@ class ShowSimilarErrorsViewTestCase(TestCase):
 
     def test_show_error_should_not_include_view_error_on_similar_errors(self):
         self.assertNotIn(self.error, self.response.context_data['errors'])
+
+class ShowRequestsViewTestCase(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
+        self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
+        self.request = Request.objects.create(url='http://teste.com', project=self.project)
+        self.response = self.client.get('/panel/projects/%d/request/%s' % (self.project.id, self.request.date.strftime('%d/%m/%y/%H/%M/')))
+
+    def tearDown(self):
+        self.user.delete()
+        self.request.delete()
+        self.project.delete()
+
+    def test_show_requests_should_return_status_code_200(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_show_requests_should_render_template_requests_html(self):
+        self.assertIn('panel/requests.html', self.response.template_name)
+
+    def test_show_project_should_include_project_in_cotext(self):
+        self.assertIn('requests', self.response.context_data)
+
+    def test_project_should_have_on_context_data(self):
+        self.assertIn(self.request, self.response.context_data['requests'])
+
