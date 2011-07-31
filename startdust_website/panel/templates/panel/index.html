@@ -13,8 +13,8 @@
                     <a href="{% url project project.id %}">
                         <p><span>Project name: </span>{{ project.name}}</p>
                         <p><span>URL: </span>{{ project.url}}</p>
-                        <p><span>Token: </span>{{ project.token }}</p>
                     </a>
+                    <p><span>Token: </span>{{ project.token }}</p>
                 </li>
             {% endfor %}
         </ul>
