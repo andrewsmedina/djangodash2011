@@ -20,7 +20,7 @@ class IndexView(TemplateView):
 @login_required
 def show_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
-    errors = Error.objects.filter(project=project.id).annotate(count_url=Count('url'), count_exception=Count('exception'))
+    errors = Error.objects.filter(project=project.id)
     return TemplateResponse(request, 'panel/project.html', {'project': project, 'errors': errors})
 
 @login_required

@@ -58,6 +58,12 @@ class ErrorModelTestCase(TestCase):
 
         self.assertEqual(error.exception, unicode(error))
 
+    def test_response_should_be_ordered_by_date_desc(self):
+        '''
+        Response should be ordered by -date
+        '''
+        self.assertIn('-date', Error._meta.ordering)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list

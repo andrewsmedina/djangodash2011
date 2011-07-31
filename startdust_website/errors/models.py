@@ -11,5 +11,8 @@ class Error(models.Model):
     exception = models.CharField(max_length=255)
     project = models.ForeignKey(Project, null=True, editable=False)
 
+    class Meta:
+        ordering = ['-date',]
+
     def __unicode__(self):
         return self.exception
