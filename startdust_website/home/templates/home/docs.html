@@ -3,8 +3,29 @@
 {% block content %}
 	<div class="container">
 		<h2>Documentation</h2>
-		<p>pip install startdust</p>
-        <p>Insert StartDustMiddleware in your project settings.</p>
+        <h3>Installing</h3>
+        <p>The easiest way to install stardust client, is via pip, the python package manager, as so:</p>
+
+        <code>
+        pip install stardust
+        </code>
+
+        <p>After that add startdust middlware in your settings.py:</p>
+        <code>
+        MIDDLEWARE_CLASSES = (
+            'django.middleware.common.CommonMiddleware',<br />
+            'django.contrib.sessions.middleware.SessionMiddleware',<br />
+            ...<br />
+            'stardust_client.middleware.StartDustMiddleware',<br />
+        )
+        </code>
+        
+        <p>Add settings for your account and project. (Before that you need be a project registered in our website):</p>
+        <code>
+            STARDUST_USERNAME = 'username'<br />
+        STARDUST_PASSWORD = 'password'<br />
+        STARDUST_PROJECT_TOKEN = 'project-token'<br />
+        </code>
 		<div class="clear"></div>
     	<div class="clear"></div>
 	</div>
