@@ -29,9 +29,12 @@ def show_project(request, id_project):
     errors = Error.objects.filter(project=project.id).values('exception', 'url').annotate(Count('url'), Max('id'))
     average_responses = Response.objects.filter(project=project.id).values('url').annotate(Avg('time'))
     average_responses_by_date = Response.objects.filter(project=project.id).values('date').annotate(Avg('time'))
-    requests = Request.objects.filter(project=project.id).annotate(quant=Count('date'))
+    requests = Request.objects.filter(project=project.id).values('date').annotate(quant=Count('url'))
     
     for item in average_responses_by_date:
+        item['date'] = calendar.timegm(item['date'].timetuple()) * 1000
+
+    for item in requests:
         item['date'] = calendar.timegm(item['date'].timetuple()) * 1000
 
     context = {
