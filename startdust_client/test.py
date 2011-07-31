@@ -12,5 +12,5 @@ class SendErrorToServerTestCase(TestCase):
 class SendResponseToServerTestCase(TestCase):
 
     def test_send_response_to_server(self):
-        response = send_response_to_server('http://someurl.com', 0.1234)
+        response = send_response_to_server('http://someurl.com', 234)
         self.assertEqual('response added with success!', response)
