@@ -36,7 +36,7 @@
                     <p>Errors:</p>
                     <ul>
                         {% for error in errors %}
-                            <li><a href="{{ error.get_absolute_url }}">{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</a></li>
+                        <li><a href="/panel/projects/{{ project.id }}/error/{{ error.id__max }}/">{{ error.exception }} - {{ error.url }} - {{ error.url__count }}</a></li>
                         {% endfor %}
                     </ul>
                     {% else %}
