@@ -21,7 +21,14 @@ class ApiErrorTestCase(TestCase):
             'HTTP_AUTHORIZATION': auth,
         }
 
+        self.project = Project.objects.create(
+            name='project name',
+            url='http://projecturl.com',
+            token='123'
+        )
+ 
     def tearDown(self):
+        self.project.delete()
         self.user.delete()
 
     def test_api_error_post_view_should_add_a_error(self):
@@ -55,6 +62,23 @@ class ApiErrorTestCase(TestCase):
 
         response = self.client.post('/api/error/', post_data, **self.extra)
         self.assertEqual(200, response.status_code)
+
+    def test_api_error_view_should_create_a_relation_between_error_and_project(self):
+        '''
+        api error should create a realtionship between error and project
+        '''
+        post_data = {
+            'exception': 'some exception',
+            'url': 'http://someurl.com',
+            'traceback': 'some traceback',
+            'token': '123',
+        }
+
+        response = self.client.post('/api/error/', post_data, **self.extra)
+        
+        project = Error.objects.get(exception=post_data['exception']).project
+        self.assertTrue(project)
+
 
     def test_add_error_should_returns_405_when_the_method_isnt_post(self):
         '''
