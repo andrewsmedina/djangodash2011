@@ -126,10 +126,14 @@
 	font-weight: bold;
 }
 
-.graph {
+.response-graph {
 	width: 600px;
 	height: 300px;
 	margin:20px;
+}
+
+.request_graph {
+	height: 150px;	
 }
 
 .footer-panel {
