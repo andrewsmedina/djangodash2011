@@ -134,7 +134,7 @@ class ApiResponseTestCase(TestCase):
         api response post should add response
         '''
         post_data = {
-            'time': 1123,
+            'time': 0.1123,
             'url': 'http://someurl.com',
         }
 
@@ -150,7 +150,7 @@ class ApiResponseTestCase(TestCase):
         request api should returns 200 if response is added
         '''
         post_data = {
-            'time': 1123,
+            'time': 0.1123,
             'url': 'http://someurl.com',
         }
 
@@ -177,7 +177,7 @@ class ApiResponseTestCase(TestCase):
         response api should returns a error if url is empty
         '''
         post_data = {
-            'time': 1123,
+            'time': 0.1123,
             'url': '',
         }
 
@@ -189,7 +189,7 @@ class ApiResponseTestCase(TestCase):
         response api should returns a error if url isnot in post dict
         '''
         post_data = {
-            'time': 1124,
+            'time': 0.1124,
         }
 
         response = self.client.post('/api/response/', post_data)
