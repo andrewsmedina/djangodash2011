@@ -45,6 +45,18 @@
 	margin-bottom: 30px;
 }
 
+.projects.project h2 {
+    color: #a73636;
+    font-size: 26px;
+    font-weight: bold;
+    margin: 30px 0px;
+}
+
+.projects.project p {
+	font-size: 16px;
+	font-weight: normal;
+}
+
 .projects ul {
 	margin: 20px 0px 0px 20px;
 }
@@ -84,7 +96,7 @@
 .graph {
 	width: 600px;
 	height: 300px;
-	margin-bottom: 30px;
+	margin:20px;
 }
 
 .footer-panel {

@@ -10,8 +10,15 @@ from projects.models import Project
 class IndexViewTestCase(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
         request = RequestFactory().get('/')
         self.response = IndexView.as_view()(request)
+
+    def tearDown(self):
+        self.user.delete()
 
     def test_index_view_should_render_index_dot_html(self):
         '''
