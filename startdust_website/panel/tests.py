@@ -291,6 +291,28 @@ class ErrorViewTestCase(TestCase):
 
         assert False
 
+class ShowSimilarErrorsViewTestCase(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(username='teste', email='test@test.com')
+        self.user.set_password('teste')
+        self.user.save()
+        self.client.login(username='teste', password='teste')
+        self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
+        self.error = Error.objects.create(
+            date=datetime.now(),
+            exception='exception',
+            traceback='traceback',
+            url='http://error/url',
+            project=self.project
+        )
+        self.response = self.client.get('/panel/projects/%d/error/%d/similar/' % (self.project.id, self.error.id))
+
+    def tearDown(self):
+        self.user.delete()
+        self.error.delete()
+        self.project.delete()
+
     def test_show_error_should_include_similar_errors_in_context(self):
         similar_error = Error.objects.create(
             date=datetime.now(),
@@ -300,9 +322,9 @@ class ErrorViewTestCase(TestCase):
             project=self.project
         )
 
-        response = self.client.get('/panel/projects/%d/error/%d/' % (self.project.id, self.error.id))
+        response = self.client.get('/panel/projects/%d/error/%d/similar/' % (self.project.id, self.error.id))
 
-        self.assertIn(similar_error, response.context_data['similar_errors'])
+        self.assertIn(similar_error, response.context_data['errors'])
         similar_error.delete()
 
     def test_show_error_should_not_include_error_only_same_url_or_only_same_exception(self):
@@ -321,13 +343,13 @@ class ErrorViewTestCase(TestCase):
             project=self.project
         )
 
-        response = self.client.get('/panel/projects/%d/error/%d/' % (self.project.id, self.error.id))
+        response = self.client.get('/panel/projects/%d/error/%d/similar/' % (self.project.id, self.error.id))
 
-        self.assertNotIn(no_similar_error_1, response.context_data['similar_errors'])
-        self.assertNotIn(no_similar_error_2, response.context_data['similar_errors'])
+        self.assertNotIn(no_similar_error_1, response.context_data['errors'])
+        self.assertNotIn(no_similar_error_2, response.context_data['errors'])
 
         no_similar_error_1.delete()
         no_similar_error_2.delete()
 
     def test_show_error_should_not_include_view_error_on_similar_errors(self):
-        self.assertNotIn(self.error, self.response.context_data['similar_errors'])
+        self.assertNotIn(self.error, self.response.context_data['errors'])
