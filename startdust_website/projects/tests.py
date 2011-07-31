@@ -11,6 +11,7 @@ from projects.models import Project
 from projects.forms import ProjectForm
 from django.contrib.auth.models import User
 
+
 class ProjectModelTestCase(TestCase):
 
     def setUp(self):
@@ -40,4 +41,3 @@ class ProjectFormTestCase(TestCase):
         project_form = ProjectForm()
         self.assertTrue(project_form['name'])
         self.assertTrue(project_form['url'])
-

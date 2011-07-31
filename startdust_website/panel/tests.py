@@ -97,6 +97,7 @@ class AddProjectViewTestCase(TestCase):
         self.assertEqual(errors['name'], [u'This field is required.'])
         self.assertEqual(errors['url'], [u'Enter a valid URL.'])
 
+
 class ShowProjectViewTestCase(TestCase):
 
     def setUp(self):
@@ -189,8 +190,8 @@ class ChangeProjectViewTestCase(TestCase):
             self.assertEqual(expected_project.user.all()[user_indice], self.project.user.all()[user_indice])
 
     def test_project_data_should_changed_correctly(self):
-        project_data =  {'name': 'other test name',
-                         'url': u'http://otherurl.com/'}
+        project_data = {'name': 'other test name',
+                        'url': u'http://otherurl.com/'}
         response = self.client.post('/panel/projects/%d/update/' % self.project.id, project_data)
 
         expected_project = Project.objects.get(id=self.project.id)
