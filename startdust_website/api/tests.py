@@ -171,3 +171,15 @@ class ApiResponseTestCase(TestCase):
         '''
         response = self.client.get('/api/response/')
         self.assertTrue('POST' in [method for method in response.items()[2]])
+
+    def test_should_returns_a_error_if_url_is_empty(self):
+        '''
+        response api should returns a error if url is empty
+        '''
+        post_data = {
+            'time': 1123,
+            'url': '',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(500, response.status_code)
