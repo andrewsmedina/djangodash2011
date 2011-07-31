@@ -1,10 +1,10 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(name='stardust',
-      version='xpto',
+      version='0.1',
       description='some description',
       author='cobrateam',
       author_email='andrewsmedina@gmail.com',
-      packages=find_packages(),
+      packages=['stardust_client'],
       include_package_data=True,
       )
