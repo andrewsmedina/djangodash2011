@@ -1,6 +1,15 @@
 from django.test import TestCase
 from requests.models import Request
+from requests.forms import RequestForm
 
+
+class RequestFormTestCase(TestCase):
+
+    def test_request_form_should_use_request_model(self):
+        '''
+        RequestForm should use Request model
+        '''
+        self.assertEqual(Request, RequestForm._meta.model)
 
 class RequestModelTestCase(TestCase):
 
