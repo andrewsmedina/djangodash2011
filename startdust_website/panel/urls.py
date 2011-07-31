@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^projects/add/', 'panel.views.add_project', name='add-project'),
 	url(r'^projects/(?P<id_project>\d+)/delete/$', 'panel.views.remove_project', name='delete-project'),
     url(r'^projects/(?P<id_project>\d+)/update/$', 'panel.views.change_project', name='update-project'),
+    url(r'^projects/(?P<id_project>\d+)/error/(?P<id_error>\d+)/$', 'panel.views.show_error', name='error'),
 )
