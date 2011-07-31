@@ -8,12 +8,14 @@ import sys
 
 class StartDustMiddleware(object):
 
+    def __init__(self):
+        self.dispatcher = Dispatcher()
+
     def process_exception(self, request, exception):
         url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
         exc_info = sys.exc_info()
         trace = '\n'.join(traceback.format_exception(*(exc_info or sys.exc_info())))
-        dispatcher = Dispatcher()
-        proccess = Process(target=dispatcher.send_error, args=(exception.message, url, trace))
+        proccess = Process(target=self.dispatcher.send_error, args=(exception.message, url, trace))
         proccess.start()
 
     def process_request(self, request):
@@ -23,7 +25,6 @@ class StartDustMiddleware(object):
         url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
         end = datetime.now()
         time = end - request.start
-        dispatcher = Dispatcher()
-        proccess = Process(target=dispatcher.send_response, args=(url, time))
+        proccess = Process(target=self.dispatcher.send_response, args=(url, time))
         proccess.start()
         return response
