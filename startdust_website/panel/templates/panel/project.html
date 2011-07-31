@@ -25,10 +25,10 @@
             <div class="row">
                 <div class="column grid_6">
                     <div class="line grid_6"></div>
-                    {% if project.error_set.all %}
+                    {% if errors %}
                     <p>Errors:</p>
                     <ul>
-                        {% for error in  project.error_set.all %}
+                        {% for error in errors %}
                             <li>{{ error.exception }} - {{ error.date}}</li>
                         {% endfor %}
                     </ul>
