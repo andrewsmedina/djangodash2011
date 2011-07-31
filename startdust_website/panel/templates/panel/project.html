@@ -8,9 +8,18 @@
     <script src="/static/js/jquery.flot.js" type="text/javascript" language="javascript"></script>
     <script>
        $(function () {
+            var response = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
+
             var request = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
 
-            $.plot($("#placeholder"), [request], {
+            $.plot($("#response-time"), [response], {
+                xaxis: {
+                    mode: "time",
+                    timeformat: "%M"
+                }
+            });
+
+            $.plot($("#request-time"), [request], {
                 xaxis: {
                     mode: "time",
                     timeformat: "%M"
@@ -27,8 +36,16 @@
             <h2>{{ project.name }}</h2>
             <p>URL: <span>{{ project.url }}</span></p>
             <div class="line"></div>
-            <p>Average request time (request/minute)</p>
-            <div id="placeholder" class="graph"></div>
+            <div class="row">
+                <div class="column grid_8">
+                    <p>Response time (by url)</p>
+                    <div id="response-time" class="response-graph"></div>
+                </div>
+                <div class="column grid_4">
+                    <p>request/min</p>
+                    <div id="request-time" class="request_graph"></div>
+                </div>
+            </div>
             <div class="row">
                 <div class="column grid_6">
                     <div class="line grid_6"></div>
@@ -36,7 +53,7 @@
                     <p>Errors:</p>
                     <ul>
                         {% for error in errors %}
-                            <li><a href="/panel/projects/{{ id.project }}/error/{{ id.project}}/">{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</a></li>
+                        <li><a href="/panel/projects/{{ project.id }}/error/{{ error.id__max }}/">{{ error.exception }} - {{ error.url }} - {{ error.url__count }}</a></li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -46,10 +63,10 @@
                 <div class="column grid_6">
                     <div class="line grid_6"></div>
                     {% if project.response_set.all %}
-                        <p>Responses:</p>
+                        <p>Average response time by url:</p>
                         <ul>
                             {% for response in project.response_set.all %}
-                            <li>{{ response.url }} - {{ response.time }} - {{ response.date }}</li>
+                            <li><a href="{{ response.get_absolute_url }}">{{ response.url }} - {{ response.time }} - {{ response.date }}</a></li>
                             {% endfor %}
                         </ul>
                     {% else %}

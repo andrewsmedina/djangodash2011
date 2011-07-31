@@ -2,3 +2,14 @@ EMAIL_HOST = 'your-email-host-here'
 EMAIL_HOST_USER = 'your-email-user-here'
 EMAIL_HOST_PASSWORD = 'your-email-password-here'
 EMAIL_PORT = 000
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stardust',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}

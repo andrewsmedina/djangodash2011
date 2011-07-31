@@ -9,7 +9,7 @@
     color: #000;
 }
 
-.add-project {
+.button {
 	width: 117px;
 	height: auto;
 	background-color: #a73636;
@@ -23,16 +23,20 @@
 	margin: 30px;
 }
 
-.add-project a {
+.button a {
 	color: #fff;
 }
 
-.add-project:hover{
+.button:hover{
 	background-color: #000;
 }
 
-.add-project a:hover {
+.button a:hover {
 	color: #fff;
+}
+
+.button.similar-errors {
+	width: 95px;
 }
 
 .container h3 {
@@ -126,10 +130,14 @@
 	font-weight: bold;
 }
 
-.graph {
+.response-graph {
 	width: 600px;
 	height: 300px;
 	margin:20px;
+}
+
+.request_graph {
+	height: 150px;	
 }
 
 .footer-panel {

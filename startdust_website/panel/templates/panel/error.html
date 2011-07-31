@@ -2,15 +2,29 @@
 
 {% block content %}
 	<div class="container">
-        <div class="project">
-            <h2> {{ error.project.name }}: {{ error.exception }}</h2>
-            <ul>
-            	<li><p>{{ error.date }}</p></li>
-            	<li><p>{{ error.url}}</p></li>
-            	<li><p>{{ error.traceback }}</p></li>
-            	<li><p>{{ error.exception }}</p></li>
-            	<li><p>{{ error.project }}</p></li>
-            </ul>		
+            <div class="project">
+                  <div class="row">
+                        <div class="column grid_9">
+                              <h2> {{ error.project.name }}: {{ error.exception }}</h2>
+                        </div>
+                        <div class="column grid_3">
+                              <div class="button similar-errors">
+                                    <a href="/panel/projects/{{ error.project.id }}/error/{{ error.id }}/similar/">similar errors</a>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="column grid_12">
+                              <ul>
+                              	<li><p>{{ error.date }}</p></li>
+                              	<li><p>{{ error.url}}</p></li>
+                              	<li><p>{{ error.traceback }}</p></li>
+                              	<li><p>{{ error.exception }}</p></li>
+                              </ul>
+                        </div>
+                  </div>		
 		</div>
+            <div class="clear"></div>
+            <div class="clear"></div>
 	</div>
 {% endblock %}
