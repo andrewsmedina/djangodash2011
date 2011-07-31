@@ -43,7 +43,6 @@ def remove_project(request, id_project):
     get_object_or_404(Project, id=id_project).delete()
     return HttpResponseRedirect('/panel/')
 
-@login_required
 def change_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
 
