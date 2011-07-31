@@ -1,3 +1,5 @@
+from django.conf import settings
+
 import urllib2
 import urllib
 import base64
@@ -8,12 +10,16 @@ STARDUST_URL = 'http://localhost:8000/api'
 
 class Dispatcher(object):
 
+    def __init__(self):
+        self.username = 'andrews'#settings.STARDUST_LOGIN
+        self.password = 'andrews'#settings.STARDUST_PASSWORD
+
     def authenticate(self, url):
         '''
         add authorization information to header
         '''
         request = urllib2.Request(url)
-        base64string = base64.encodestring('%s:%s' % ('andrews', 'andrews'))[:-1]
+        base64string = base64.encodestring('%s:%s' % (self.username, self.password))[:-1]
         authheader =  "Basic %s" % base64string
         request.add_header("Authorization", authheader)
         return request
