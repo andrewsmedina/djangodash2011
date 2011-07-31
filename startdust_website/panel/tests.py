@@ -253,3 +253,20 @@ class ErrorViewTestCase(TestCase):
     def test_show_error_should_include_error_in_context(self):
         self.assertIn('error', self.response.context_data)
 
+    def test_show_error_should_have_correctly_data_from_error(self):
+        expected_error = self.response.context_data['error']
+        self.assertEqual(self.error.date, expected_error.date)
+        self.assertEqual(self.error.url, expected_error.url)
+        self.assertEqual(self.error.traceback, expected_error.traceback)
+        self.assertEqual(self.error.exception, expected_error.exception)
+        self.assertEqual(self.error.project, expected_error.project)
+
+    def test_show_error_nonexistent_should_return_404(self):
+        try:
+            self.client.get('/panel/projects/1/error/12333344/')
+        except:
+            return
+
+        assert False
+
+
