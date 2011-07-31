@@ -86,6 +86,15 @@ body {
     margin: 10px 0px;
 }
 
+.container p a {
+    color: #a73636;
+    font-weight: bold;
+}
+
+.container p a:hover {
+    color: #000;
+}
+
 .content.description p {
     color: #4b4b4b;
     font-weight: bold;
