@@ -78,6 +78,18 @@
 	padding: 10px;
 }
 
+.project li:hover {
+	background-color: #ecebeb;
+}
+
+.project li a {
+	color: #4B4B4B;
+}
+
+.project li a:hover {
+	color: #000;
+}
+
 .projects ul {
 	margin: 20px 0px 0px 20px;
 }
