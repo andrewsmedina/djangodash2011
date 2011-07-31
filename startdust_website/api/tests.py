@@ -1,5 +1,6 @@
 from django.test import TestCase
 from errors.models import Error
+from responses.models import Response
 
 
 class ApiErrorTestCase(TestCase):
@@ -123,4 +124,84 @@ class ApiErrorTestCase(TestCase):
         }
 
         response = self.client.post('/api/error/', post_data)
+        self.assertEqual(500, response.status_code)
+
+
+class ApiResponseTestCase(TestCase):
+
+    def test_api_response_view_should_add_a_response(self):
+        '''
+        api response post should add response
+        '''
+        post_data = {
+            'time': 0.1123,
+            'url': 'http://someurl.com',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        
+        try:
+            Response.objects.get(time=post_data['time'])
+        except Response.DoesNotExist:
+            assert False
+
+    def test_request_api_view_should_returns_200(self):
+        '''
+        request api should returns 200 if response is added
+        '''
+        post_data = {
+            'time': 0.1123,
+            'url': 'http://someurl.com',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(200, response.status_code)
+
+    def test_should_returns_405_when_the_method_isnt_post(self):
+        '''
+        request api should returns 405 status code when method isnt a post
+        '''
+        response = self.client.get('/api/response/')
+        self.assertEqual(405, response.status_code)
+
+    def test_should_returns_methods_allowed_when_the_method_isnt_post(self):
+        '''
+        request api should returns 405 status code when method inst a post
+        and returns post in method allowed
+        '''
+        response = self.client.get('/api/response/')
+        self.assertTrue('POST' in [method for method in response.items()[2]])
+
+    def test_should_returns_a_error_if_url_is_empty(self):
+        '''
+        response api should returns a error if url is empty
+        '''
+        post_data = {
+            'time': 0.1123,
+            'url': '',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(500, response.status_code)
+
+    def test_should_returns_a_error_if_url_isnot_in_post_dict(self):
+        '''
+        response api should returns a error if url isnot in post dict
+        '''
+        post_data = {
+            'time': 0.1124,
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(500, response.status_code)
+
+    def test_should_returns_a_error_if_time_isnot_in_post_dict(self):
+        '''
+        response api should returns a error if time isnot in post dict
+        '''
+        post_data = {
+            'url': 'http://someulr.com',
+        }
+
+        response = self.client.post('/api/response/', post_data)
         self.assertEqual(500, response.status_code)
