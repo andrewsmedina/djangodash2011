@@ -4,3 +4,4 @@ nose==1.1.1
 gunicorn
 hg+https://andrewsmedina@bitbucket.org/ubernostrum/django-registration
 coverage==3.5
+django-piston==0.2.2
