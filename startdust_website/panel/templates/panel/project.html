@@ -30,7 +30,7 @@
                     <p>Errors:</p>
                     <ul>
                         {% for error in errors %}
-                            <li>{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</li>
+                            <li><a href="/panel/projects/{{ id.project }}/error/{{ id.project}}/">{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</a></li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -43,7 +43,11 @@
                         <p>Responses:</p>
                         <ul>
                             {% for response in project.response_set.all %}
+<<<<<<< HEAD
+                            <li><a href{{ response.url }} - {{ response.time}} - {{ response.date}}</li>
+=======
                             <li>{{ response.url }} - {{ response.time }} - {{ response.date }}</li>
+>>>>>>> 6b1a8a4ecf8b873580cbbfe5b7e6acfe8a1167f1
                             {% endfor %}
                         </ul>
                     {% else %}

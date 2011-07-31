@@ -7,3 +7,6 @@ class Project(models.Model):
     url = models.URLField(verify_exists=False)
     token = models.CharField(max_length=255)
     user = models.ManyToManyField(User, null=True, blank=True)
+
+    def get_absolute_url(self):
+        return '/panel/projects/%d/' % self.id

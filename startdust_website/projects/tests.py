@@ -34,6 +34,8 @@ class ProjectModelTestCase(TestCase):
         expected_user = Project.objects.get(id=self.project.id).user.all()[0]
         self.assertEqual(user, expected_user)
 
+    def test_get_absolute_url_should_return_url_of_project(self):
+        self.assertEqual(self.project.get_absolute_url(), '/panel/projects/%s/' % self.project.id)
 
 class ProjectFormTestCase(TestCase):
 
