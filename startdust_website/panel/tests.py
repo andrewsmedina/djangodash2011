@@ -56,10 +56,7 @@ class AddProjectViewTestCase(TestCase):
         self.user.set_password('teste')
         self.user.save()
         self.client.login(username='teste', password='teste')
-        self.factory = RequestFactory()
-        request = self.factory.get('/painel/projects/add/')
-        request.user = self.user
-        self.response = add_project(request)
+        self.response = self.client.get('/panel/projects/add/')
 
     def tearDown(self):
         Project.objects.all().delete()
@@ -108,10 +105,7 @@ class ShowProjectViewTestCase(TestCase):
         self.user.save()
         self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
-        self.factory = RequestFactory()
-        request = self.factory.get('/panel/projects/%d' % self.project.id)
-        request.user = self.user
-        self.response = show_project(request, self.project.id)
+        self.response = self.client.get('/panel/projects/%d/' % self.project.id)
 
     def tearDown(self):
         self.project.delete()
@@ -140,10 +134,7 @@ class RemoveProjectViewTestCase(TestCase):
         self.user.save()
         self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='project teste', url='projeto de teste', token='123213123213')
-        self.factory = RequestFactory()
-        request = self.factory.get('')
-        request.user = self.user
-        self.response = remove_project(request, self.project.id)
+        self.response = self.client.get('/panel/projects/%d/delete/' % self.project.id)
 
     def tearDown(self):
         self.project.delete()
@@ -177,10 +168,7 @@ class ChangeProjectViewTestCase(TestCase):
         self.user.save()
         self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='project of teste', url='http://urlqq.com', token='123333444555')
-        self.factory = RequestFactory()
-        request = self.factory.get('/panel/project/%d/change/' % self.project.id)
-        request.user = self.user
-        self.response = change_project(request, self.project.id)
+        self.response = self.client.get('/panel/projects/%d/update/' % self.project.id)
 
     def tearDown(self):
         self.project.delete()
