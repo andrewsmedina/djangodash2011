@@ -9,7 +9,7 @@
     <script>
         $(function () {
             //var request = [[1, 3], [3, 5], [4, 5.6], [8, 6], [10, 6.1], [11, 8], [15, 8.9], [16, 10.2], [17, 13]];       
-            var request = [{% for response in project.response_set.all %}[{{ response.date|date:"u" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
+            var request = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
             $.plot($("#placeholder"), [ request ]);
         });
     </script>
@@ -41,10 +41,9 @@
                     <div class="line grid_6"></div>
                     {% if project.response_set.all %}
                         <p>Responses:</p>
-                    var request = [{% for response in project.response_set.all %}[{{ response.time }}, {{ response.date|date:"u"}}]{% if not forloop.last %},{% endif %}{% endfor %}];
                         <ul>
                             {% for response in project.response_set.all %}
-                            <li>{{ response.url }} - {{ response.time}} - {{ response.date}}</li>
+                            <li>{{ response.url }} - {{ response.time }} - {{ response.date }}</li>
                             {% endfor %}
                         </ul>
                     {% else %}
