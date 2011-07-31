@@ -5,11 +5,13 @@ from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count, Max
+from django.db.models import Count, Max, Avg
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
 from requests.models import Request
+from responses.models import Response
+
 
 class IndexView(TemplateView):
     template_name = 'panel/index.html'
@@ -19,13 +21,23 @@ class IndexView(TemplateView):
         context['projects'] = Project.objects.all()
         return context
 
+
 @login_required
 def show_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
     errors = Error.objects.filter(project=project.id).values('exception', 'url').annotate(Count('url'), Max('id'))
-    #errors = Error.objects.filter(project=project.id).annotate(count_exception=Count('exception'))
+    average_responses = Response.objects.filter(project=project.id).values('url').annotate(Avg('time'))
     requests = Request.objects.filter(project=project.id).annotate(quant=Count('date'))
-    return TemplateResponse(request, 'panel/project.html', {'project': project, 'errors': errors, 'requests': requests})
+
+    context = {
+        'project': project, 
+        'errors': errors, 
+        'requests': requests,
+        'average_responses': average_responses,
+    }
+
+    return TemplateResponse(request, 'panel/project.html', context)
+
 
 @login_required
 def add_project(request):
