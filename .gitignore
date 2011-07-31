@@ -4,6 +4,6 @@ foo.json
 *.db
 *.orig
 local_settings.py
-build
-dist
+build/*
+dist/*
 *.egg-info
