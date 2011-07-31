@@ -130,6 +130,21 @@
 	font-weight: bold;
 }
 
+a ul.similar-errors {
+	color: #4b4b4b;
+}
+
+ul.similar-errors {
+	background-color: #ECEBEB;
+    margin: 10px;
+    padding: 10px;	
+    border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	position: relative;
+	behavior: url(/static/pie/PIE.htc);
+}
+
 .response-graph {
 	width: 600px;
 	height: 300px;
