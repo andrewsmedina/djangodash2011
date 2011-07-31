@@ -4,6 +4,7 @@
 	<div class="container">
             <div class="project">
                   <h2> {{ error.project.name }}: {{ error.exception }}</h2>
+                  <a href="/panel/projects/{{ error.project.id }}/error/{{ error.id }}/similar/">similar errors</a>
                   <ul>
                   	<li><p>{{ error.date }}</p></li>
                   	<li><p>{{ error.url}}</p></li>
