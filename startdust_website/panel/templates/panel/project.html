@@ -8,11 +8,15 @@
     <script src="/static/js/jquery.flot.js" type="text/javascript" language="javascript"></script>
     <script>
        $(function () {
-            var response = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
+            // var response = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
+
+            var response = [[11411676, 382.66], [11438424, 384.69], [11464344, 384.94], [11491128, 384.01], [11517048, 382.14]];
+
+            var d = [[11727036, 384.49], [11753784, 386.37], [11779704, 386.54], [11806488, 385.98], [11832408, 384.36]];
 
             var request = [{% for response in project.response_set.all %}[{{ response.date|date:"U" }}, {{ response.time }}]{% if not forloop.last %},{% endif %}{% endfor %}];
 
-            $.plot($("#response-time"), [response], {
+            $.plot($("#response-time"), [response, d], {
                 xaxis: {
                     mode: "time",
                     timeformat: "%M"
