@@ -41,20 +41,29 @@
 	color: #4B4B4B;
 }
 
-.projects.project {
+.project {
 	margin-bottom: 30px;
 }
 
-.projects.project h2 {
+.project h2 {
     color: #a73636;
     font-size: 26px;
     font-weight: bold;
     margin: 30px 0px;
 }
 
-.projects.project p {
+.project p {
 	font-size: 16px;
 	font-weight: normal;
+}
+
+.project ul {
+	margin: 0px;
+}
+
+.project li {
+	border-bottom: dashed 1px #EBEBEB;
+	padding: 10px;
 }
 
 .projects ul {

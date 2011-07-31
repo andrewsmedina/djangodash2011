@@ -8,12 +8,16 @@ STARDUST_URL = 'http://localhost:8000/api'
 
 class Dispatcher(object):
 
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
     def authenticate(self, url):
         '''
         add authorization information to header
         '''
         request = urllib2.Request(url)
-        base64string = base64.encodestring('%s:%s' % ('andrews', 'andrews'))[:-1]
+        base64string = base64.encodestring('%s:%s' % (self.username, self.password))[:-1]
         authheader =  "Basic %s" % base64string
         request.add_header("Authorization", authheader)
         return request
