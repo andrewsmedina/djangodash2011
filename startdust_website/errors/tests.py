@@ -2,6 +2,7 @@ from django.test import TestCase
 from datetime import datetime
 from errors.models import Error
 from errors.forms import ErrorForm
+from projects.models import Project
 
 
 class ErrorFormTestCase(TestCase):
@@ -63,6 +64,20 @@ class ErrorModelTestCase(TestCase):
         Response should be ordered by -date
         '''
         self.assertIn('-date', Error._meta.ordering)
+
+    def test_get_absolute_url_should_return_url_of_error(self):
+        '''
+        url should be /panel/projects/1/error/1/
+        '''
+        project = Project.objects.create(name='testee', url=u'http://aaaa.com', token='111111')
+        error = Error.objects.create(
+            date=datetime.now(),
+            exception='exception',
+            traceback='traceback',
+            url='http://error/url',
+            project=project
+        )
+        self.assertEqual(error.get_absolute_url(), '/panel/projects/%s/error/%s/' % (project.id, error.id))
 
     def assertFieldIn(self, expected_field, field_list):
         '''

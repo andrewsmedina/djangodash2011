@@ -16,3 +16,6 @@ class Error(models.Model):
 
     def __unicode__(self):
         return self.exception
+
+    def get_absolute_url(self):
+        return '/panel/projects/%d/error/%d/' % (self.project.id, self.id)
