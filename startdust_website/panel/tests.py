@@ -3,7 +3,7 @@ from django.test.client import RequestFactory
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from panel.views import IndexView, add_project, show_project, remove_project, change_project
-from projects.forms import ProjectForm
+from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 
 
@@ -182,11 +182,16 @@ class ChangeProjectViewTestCase(TestCase):
     def test_change_project_should_return_status_code_200(self):
         self.assertEqual(self.response.status_code, 200)
 
+    def test_add_project_should_have_form_on_context(self):
+        self.assertEqual(self.response.context_data['form'].__class__, UpdateProjectForm)
+
     def test_change_project_should_have_form_with_data_on_form(self):
         expected_project = self.response.context_data['form'].instance
 
         self.assertEqual(self.project.name, expected_project.name)
         self.assertEqual(self.project.url, expected_project.url)
+        for user_indice in range(len(expected_project.user.all())):
+            self.assertEqual(expected_project.user.all()[user_indice], self.project.user.all()[user_indice])
 
     def test_project_data_should_changed_correctly(self):
         project_data =  {'name': 'other test name',

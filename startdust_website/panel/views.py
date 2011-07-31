@@ -1,10 +1,9 @@
 from uuid import uuid4
-from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from projects.forms import ProjectForm
+from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
 
@@ -46,12 +45,12 @@ def change_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
 
     if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
+        form = UpdateProjectForm(request.POST, instance=project)
 
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/panel/projects/%d/' % form.instance.id)
     else:
-        form = ProjectForm(instance=project)
+        form = UpdateProjectForm(instance=project)
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
