@@ -29,10 +29,11 @@ class StartDustMiddleware(object):
         request.start = datetime.now()
 
     def process_response(self, request, response):
-        url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
-        end = datetime.now()
-        time = end - request.start
-        time_in_milliseconds = time.microseconds / 1000.0
-        proccess = Process(target=self.dispatcher.send_response, args=(url, time_in_milliseconds))
-        proccess.start()
+        if hasattr(request, 'start'):
+            url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
+            end = datetime.now()
+            time = end - request.start
+            time_in_milliseconds = time.microseconds / 1000.0
+            proccess = Process(target=self.dispatcher.send_response, args=(url, time_in_milliseconds))
+            proccess.start()
         return response
