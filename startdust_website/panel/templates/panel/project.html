@@ -69,8 +69,8 @@
                     {% if project.response_set.all %}
                         <p>Average response time by url:</p>
                         <ul>
-                            {% for response in project.response_set.all %}
-                            <li><a href="{{ response.get_absolute_url }}">{{ response.url }} - {{ response.time }} - {{ response.date }}</a></li>
+                            {% for response in average_responses %}
+                                <li>{{ response.url }} - {{ response.time__avg }}ms</li>
                             {% endfor %}
                         </ul>
                     {% else %}
