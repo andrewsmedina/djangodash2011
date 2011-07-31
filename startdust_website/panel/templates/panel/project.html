@@ -29,7 +29,7 @@
                     <p>Errors:</p>
                     <ul>
                         {% for error in errors %}
-                            <li>{{ error.exception }} - {{ error.date}}</li>
+                            <li>{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</li>
                         {% endfor %}
                     </ul>
                     {% else %}
