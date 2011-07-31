@@ -5,6 +5,26 @@ from errors.forms import ErrorForm
 from responses.models import Response
 from responses.forms import ResponseForm
 from projects.models import Project
+from requests.models import Request
+from requests.forms import RequestForm
+
+
+class RequestHandler(BaseHandler):
+    allowed_methods = ('POST',)
+    exclude = ('date', 'project')
+    model = Request
+
+    def create(self, request):
+        if request.method == "POST":
+            form = RequestForm(request.POST)
+
+            if form.is_valid():
+                instance = form.save()
+                instance.project = Project.objects.get(token=form.cleaned_data['token'])
+                instance.save()
+                return HttpResponse('request added with success!')
+            else:
+                return HttpResponse('', status=500)
 
 
 class ResponseHandler(BaseHandler):
