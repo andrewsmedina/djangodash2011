@@ -161,6 +161,8 @@ LOGGING = {
     }
 }
 
+LOGIN_REDIRECT_URL = '/panel/'
+
 #
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 TESTS_APPS = ('django_nose',)

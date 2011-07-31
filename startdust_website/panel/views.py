@@ -8,7 +8,6 @@ from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
 
-
 class IndexView(TemplateView):
     template_name = 'panel/index.html'
 
