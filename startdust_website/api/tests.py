@@ -270,3 +270,83 @@ class ApiResponseTestCase(ApiTestCase):
 
         response = self.client.post('/api/response/', post_data, **self.extra)
         self.assertEqual(500, response.status_code)
+
+
+class ApiRequestTestCase(ApiTestCase):
+
+    def test_api_request_view_should_add_a_request(self):
+        '''
+        api request post should add request 
+        '''
+        post_data = {
+            'url': 'http://someurl.com',
+            'token': '123',
+        }
+
+        response = self.client.post('/api/request/', post_data, **self.extra)
+        
+        try:
+            Request.objects.get(url=post_data['url'])
+        except Request.DoesNotExist:
+            assert False
+
+    def test_request_api_view_should_returns_200(self):
+        '''
+        request api should returns 200 if response is added
+        '''
+        post_data = {
+            'url': 'http://someurl.com',
+            'token': '123',
+        }
+
+        response = self.client.post('/api/request/', post_data, **self.extra)
+        self.assertEqual(200, response.status_code)
+
+    def test_api_request_view_should_create_a_relation_between_request_and_project(self):
+        '''
+        api request should create a realtionship between request and project
+        '''
+        post_data = {
+            'url': 'http://someurl.com',
+            'token': '123',
+        }
+
+        response = self.client.post('/api/request/', post_data, **self.extra)
+        
+        project = Response.objects.get(url=post_data['url']).project
+        self.assertTrue(project)
+
+    def test_should_returns_405_when_the_method_isnt_post(self):
+        '''
+        request api should returns 405 status code when method isnt a post
+        '''
+        response = self.client.get('/api/request/', **self.extra)
+        self.assertEqual(405, response.status_code)
+
+    def test_should_returns_methods_allowed_when_the_method_isnt_post(self):
+        '''
+        request api should returns 405 status code when method inst a post
+        and returns post in method allowed
+        '''
+        response = self.client.get('/api/request/', **self.extra)
+        self.assertTrue('POST' in [method for method in response.items()[2]])
+
+    def test_should_returns_a_error_if_url_is_empty(self):
+        '''
+        request api should returns a error if url is empty
+        '''
+        post_data = {
+            'url': '',
+        }
+
+        response = self.client.post('/api/request/', post_data, **self.extra)
+        self.assertEqual(500, response.status_code)
+
+    def test_should_returns_a_error_if_url_isnot_in_post_dict(self):
+        '''
+        request api should returns a error if url isnot in post dict
+        '''
+        post_data = {}
+
+        response = self.client.post('/api/request/', post_data, **self.extra)
+        self.assertEqual(500, response.status_code)
