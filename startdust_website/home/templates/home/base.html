@@ -12,7 +12,7 @@
         <div class="header">
             <div class="row">
                 <div class="column grid_12">
-                    <h1><a href="/">stardust</a></h1>
+                    <h1><a href="{% url index %}">stardust</a></h1>
                 </div>
             </div>
         </div>
@@ -23,8 +23,8 @@
                         <a href="/auth/login/">Sign in</a>
                     </div>
                     <ul>
-                        <li><a href="">features</a></li>
-                        <li><a href="">documentation</a></li>
+                        <li><a href="{% url features %}">features</a></li>
+                        <li><a href="{% url docs %}">documentation</a></li>
                     </ul>               
                 </div>
             </div>
