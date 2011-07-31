@@ -10,9 +10,9 @@ STARDUST_URL = 'http://localhost:8000/api'
 
 class Dispatcher(object):
 
-    def __init__(self):
-        self.username = 'andrews'#settings.STARDUST_LOGIN
-        self.password = 'andrews'#settings.STARDUST_PASSWORD
+    def __init__(self, username, password):
+        self.username = username#settings.STARDUST_LOGIN
+        self.password = password#settings.STARDUST_PASSWORD
 
     def authenticate(self, url):
         '''
