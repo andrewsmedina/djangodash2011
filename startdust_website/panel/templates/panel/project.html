@@ -30,7 +30,7 @@
                     <p>Errors:</p>
                     <ul>
                         {% for error in errors %}
-                            <li>{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</li>
+                            <li><a href="/panel/projects/{{ id.project }}/error/{{ id.project}}/">{{ error.exception }} - {{ error.date }} - {{ error.count_exception }}</a></li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -44,7 +44,7 @@
                     var request = [{% for response in project.response_set.all %}[{{ response.time }}, {{ response.date|date:"u"}}]{% if not forloop.last %},{% endif %}{% endfor %}];
                         <ul>
                             {% for response in project.response_set.all %}
-                            <li>{{ response.url }} - {{ response.time}} - {{ response.date}}</li>
+                            <li><a href{{ response.url }} - {{ response.time}} - {{ response.date}}</li>
                             {% endfor %}
                         </ul>
                     {% else %}
