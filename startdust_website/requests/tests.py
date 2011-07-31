@@ -16,6 +16,12 @@ class RequestModelTestCase(TestCase):
         '''
         self.assertFieldIn('date', Request._meta.fields)
 
+    def test_request_model_should_be_related_with_project(self):
+        '''
+        Request model shoudl be related with Project model
+        '''
+        self.assertFieldIn('project', Request._meta.fields)
+
     def assertFieldIn(self, expected_field, field_list):
         '''
         assert if field in a field list
