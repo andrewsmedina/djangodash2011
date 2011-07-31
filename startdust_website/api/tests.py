@@ -183,3 +183,25 @@ class ApiResponseTestCase(TestCase):
 
         response = self.client.post('/api/response/', post_data)
         self.assertEqual(500, response.status_code)
+
+    def test_should_returns_a_error_if_url_isnot_in_post_dict(self):
+        '''
+        response api should returns a error if url isnot in post dict
+        '''
+        post_data = {
+            'time': 1124,
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(500, response.status_code)
+
+    def test_should_returns_a_error_if_time_isnot_in_post_dict(self):
+        '''
+        response api should returns a error if time isnot in post dict
+        '''
+        post_data = {
+            'url': 'http://someulr.com',
+        }
+
+        response = self.client.post('/api/response/', post_data)
+        self.assertEqual(500, response.status_code)
