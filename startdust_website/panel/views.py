@@ -56,6 +56,7 @@ def change_project(request, id_project):
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
 
+@login_required
 def show_error(request, id_project, id_error):
     error = get_object_or_404(Error, id=id_error)
     return TemplateResponse(request, 'panel/error.html', {'error': error})
