@@ -1,5 +1,3 @@
-from django.conf import settings
-
 import urllib2
 import urllib
 import base64
@@ -11,8 +9,8 @@ STARDUST_URL = 'http://localhost:8000/api'
 class Dispatcher(object):
 
     def __init__(self, username, password):
-        self.username = username#settings.STARDUST_LOGIN
-        self.password = password#settings.STARDUST_PASSWORD
+        self.username = username
+        self.password = password
 
     def authenticate(self, url):
         '''

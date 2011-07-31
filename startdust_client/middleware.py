@@ -1,3 +1,4 @@
+from django.conf import settings
 from dispatchers import Dispatcher
 from multiprocessing import Process
 from datetime import datetime
@@ -9,7 +10,9 @@ import sys
 class StartDustMiddleware(object):
 
     def __init__(self):
-        self.dispatcher = Dispatcher()
+        username = settings.STARDUST_USERNAME
+        password = settings.STARDUST_PASSWORD
+        self.dispatcher = Dispatcher(username, password)
 
     def process_exception(self, request, exception):
         url = 'http://%s%s%s' % (request.META['SERVER_NAME'], ':' + request.META['SERVER_PORT'], request.path_info)
