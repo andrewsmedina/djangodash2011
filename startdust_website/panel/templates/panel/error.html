@@ -2,15 +2,16 @@
 
 {% block content %}
 	<div class="container">
-        <div class="project">
-            <h2> {{ error.project.name }}: {{ error.exception }}</h2>
-            <ul>
-            	<li><p>{{ error.date }}</p></li>
-            	<li><p>{{ error.url}}</p></li>
-            	<li><p>{{ error.traceback }}</p></li>
-            	<li><p>{{ error.exception }}</p></li>
-            	<li><p>{{ error.project }}</p></li>
-            </ul>		
+            <div class="project">
+                  <h2> {{ error.project.name }}: {{ error.exception }}</h2>
+                  <ul>
+                  	<li><p>{{ error.date }}</p></li>
+                  	<li><p>{{ error.url}}</p></li>
+                  	<li><p>{{ error.traceback }}</p></li>
+                  	<li><p>{{ error.exception }}</p></li>
+                  	<li><p>{{ error.project }}</p></li>
+                  </ul>
+                  <div class="clear"></div>		
 		</div>
 	</div>
 {% endblock %}
