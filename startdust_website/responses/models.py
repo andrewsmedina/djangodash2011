@@ -14,5 +14,5 @@ class Response(models.Model):
 
     def save(self, *args, **kwargs):
         date = datetime.now()
-        self.date = datetime(date.year, date.month, date.day, date.hour, date.minute, date.second)
+        self.date = datetime(date.year, date.month, date.day, date.hour, date.minute)
         super(Response, self).save(*args, **kwargs)

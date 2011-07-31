@@ -1,5 +1,4 @@
 from uuid import uuid4
-import datetime
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
@@ -11,6 +10,8 @@ from projects.models import Project
 from errors.models import Error
 from requests.models import Request
 from responses.models import Response
+
+import calendar
 
 
 class IndexView(TemplateView):
@@ -29,6 +30,9 @@ def show_project(request, id_project):
     average_responses = Response.objects.filter(project=project.id).values('url').annotate(Avg('time'))
     average_responses_by_date = Response.objects.filter(project=project.id).values('date').annotate(Avg('time'))
     requests = Request.objects.filter(project=project.id).annotate(quant=Count('date'))
+    
+    for item in average_responses_by_date:
+        item['date'] = calendar.timegm(item['date'].timetuple()) * 1000
 
     context = {
         'project': project, 
