@@ -27,6 +27,7 @@ def show_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
     errors = Error.objects.filter(project=project.id).values('exception', 'url').annotate(Count('url'), Max('id'))
     average_responses = Response.objects.filter(project=project.id).values('url').annotate(Avg('time'))
+    average_responses_by_date = Response.objects.filter(project=project.id).values('date').annotate(Avg('time'))
     requests = Request.objects.filter(project=project.id).annotate(quant=Count('date'))
 
     context = {
@@ -34,6 +35,7 @@ def show_project(request, id_project):
         'errors': errors, 
         'requests': requests,
         'average_responses': average_responses,
+        'average_responses_by_date': average_responses_by_date,
     }
 
     return TemplateResponse(request, 'panel/project.html', context)
