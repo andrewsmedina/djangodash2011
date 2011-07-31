@@ -114,6 +114,13 @@ class ShowProjectViewTestCase(TestCase):
         self.user.save()
         self.client.login(username='teste', password='teste')
         self.project = Project.objects.create(name='Project of test', url='http://urloftest.com', token='abcccc')
+        self.error = Error.objects.create(
+            date=datetime.now(),
+            exception='exception',
+            traceback='traceback',
+            url='http://error/url',
+            project=self.project
+        )
         self.response = self.client.get('/panel/projects/%d/' % self.project.id)
 
     def tearDown(self):
@@ -139,6 +146,21 @@ class ShowProjectViewTestCase(TestCase):
             return
 
         assert False
+
+    def test_project_errors_should_ordering_by_most_recent(self):
+        error = Error.objects.create(
+            date=datetime.now(),
+            exception='exception',
+            traceback='traceback',
+            url='http://error/url',
+            project=self.project
+        )
+
+        self.response = self.client.get('/panel/projects/%d/' % self.project.id)
+
+        self.assertEqual(error, self.response.context_data['errors'][0])
+        self.assertEqual(self.error, self.response.context_data['errors'][1])
+        error.delete()
 
 
 class RemoveProjectViewTestCase(TestCase):
