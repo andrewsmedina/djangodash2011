@@ -9,3 +9,6 @@ class Response(models.Model):
     url = models.URLField(verify_exists=False)
     date = models.DateTimeField(default=datetime.now, editable=False)
     project = models.ForeignKey(Project, null=True, editable=False) #will be change this
+
+    class Meta:
+        ordering = ['date']
