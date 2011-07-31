@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
@@ -16,11 +17,12 @@ class IndexView(TemplateView):
         context['projects'] = Project.objects.all()
         return context
 
+@login_required
 def show_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
     return TemplateResponse(request, 'panel/project.html', {'project': project})
 
-
+@login_required
 def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
@@ -36,11 +38,12 @@ def add_project(request):
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
 
-
+@login_required
 def remove_project(request, id_project):
     get_object_or_404(Project, id=id_project).delete()
     return HttpResponseRedirect('/panel/')
 
+@login_required
 def change_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
 
