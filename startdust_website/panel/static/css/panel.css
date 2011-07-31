@@ -67,7 +67,6 @@
 }
 
 .project p span {
-	color: #000;
 	background-color: #EBEBEB;
 	font-size: 18px;
 	padding: 10px;
@@ -76,6 +75,14 @@
 	-moz-border-radius: 5px;
 	position: relative;
 	behavior: url(/static/pie/PIE.htc);
+}
+
+.project p span a {
+	color: #000;
+}
+
+.project p span:hover {
+	background-color: #fff;
 }
 
 .project ul {
