@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from errors.models import Error
 from responses.models import Response
+from requests.models import Request
 from projects.models import Project
 
 import base64
@@ -279,7 +280,7 @@ class ApiRequestTestCase(ApiTestCase):
         api request post should add request 
         '''
         post_data = {
-            'url': 'http://someurl.com',
+            'url': 'http://someurl.com/',
             'token': '123',
         }
 
@@ -307,13 +308,13 @@ class ApiRequestTestCase(ApiTestCase):
         api request should create a realtionship between request and project
         '''
         post_data = {
-            'url': 'http://someurl.com',
+            'url': 'http://someurla.com/',
             'token': '123',
         }
 
         response = self.client.post('/api/request/', post_data, **self.extra)
         
-        project = Response.objects.get(url=post_data['url']).project
+        project = Request.objects.get(url=post_data['url']).project
         self.assertTrue(project)
 
     def test_should_returns_405_when_the_method_isnt_post(self):
