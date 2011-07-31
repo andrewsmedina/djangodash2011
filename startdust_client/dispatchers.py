@@ -1,4 +1,6 @@
+import urllib2
 import urllib
+import base64
 
 
 STARDUST_URL = 'http://localhost:8000/api'
@@ -13,9 +15,12 @@ def send_error_to_server(exception, url, traceback):
         'url': url,
         'traceback': traceback,
     }
-    
+    request = urllib2.Request('%s/error/' % STARDUST_URL)
+    base64string = base64.encodestring('%s:%s' % ('andrews', 'andrews'))[:-1]
+    authheader =  "Basic %s" % base64string
+    request.add_header("Authorization", authheader)
     post_dict = urllib.urlencode(post_dict)
-    response = urllib.urlopen('%s/error/' % STARDUST_URL, post_dict).read()
+    response = urllib2.urlopen(request, post_dict).read()
     return response
 
 
@@ -27,7 +32,11 @@ def send_response_to_server(url, time):
         'url': url,
         'time': time,
     }
+    request = urllib2.Request('%s/response/' % STARDUST_URL)
+    base64string = base64.encodestring('%s:%s' % ('andrews', 'andrews'))[:-1]
+    authheader =  "Basic %s" % base64string
+    request.add_header("Authorization", authheader)
 
     post_dict = urllib.urlencode(post_dict)
-    response = urllib.urlopen('%s/response/' % STARDUST_URL, post_dict).read()
+    response = urllib2.urlopen(request, post_dict).read()
     return response
