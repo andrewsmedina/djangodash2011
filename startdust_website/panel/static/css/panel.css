@@ -57,6 +57,22 @@
 	font-weight: normal;
 }
 
+.project p a {
+	color: #000;
+	background-color: #EBEBEB;
+	font-size: 18px;
+	padding: 10px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	position: relative;
+	behavior: url(/static/pie/PIE.htc);
+}
+
+.project p a:hover {
+	color: #a73636;
+}
+
 .project ul {
 	margin: 0px;
 }
