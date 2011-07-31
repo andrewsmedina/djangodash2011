@@ -4,7 +4,7 @@ from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, Sum
 from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
@@ -20,7 +20,7 @@ class IndexView(TemplateView):
 @login_required
 def show_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
-    errors = Error.objects.filter(project=project.id)
+    errors = Error.objects.filter(project=project.id).annotate(count_exception=Count('exception'))
     return TemplateResponse(request, 'panel/project.html', {'project': project, 'errors': errors})
 
 @login_required
