@@ -1,4 +1,5 @@
 """
+
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".
 
@@ -8,7 +9,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from projects.models import Project
 from projects.forms import ProjectForm
-
+from django.contrib.auth.models import User
 
 class ProjectModelTestCase(TestCase):
 
@@ -23,6 +24,14 @@ class ProjectModelTestCase(TestCase):
         self.assertEqual(expected_project.name, self.project.name)
         self.assertEqual(expected_project.url, self.project.url)
         self.assertEqual(expected_project.token, self.project.token)
+
+    def test_relatioship_project_with_user(self):
+        user = User.objects.create(username='teste', password='teste', email='test@test.com')
+        self.project.user.add(user)
+        self.project.save()
+
+        expected_user = Project.objects.get(id=self.project.id).user.all()[0]
+        self.assertEqual(user, expected_user)
 
 
 class ProjectFormTestCase(TestCase):

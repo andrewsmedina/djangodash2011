@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from projects.forms import ProjectForm
+from projects.forms import ProjectForm, UpdateProjectForm
 from projects.models import Project
 from errors.models import Error
 
@@ -27,7 +27,8 @@ def add_project(request):
 
         if form.is_valid():
             form.instance.token = str(uuid4())
-            form.save()
+            instance = form.save()
+            instance.user.add(request.user)
             return HttpResponseRedirect('/panel/projects/%d' % form.instance.id)
 
     else:
@@ -44,12 +45,12 @@ def change_project(request, id_project):
     project = get_object_or_404(Project, id=id_project)
 
     if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
+        form = UpdateProjectForm(request.POST, instance=project)
 
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/panel/projects/%d/' % form.instance.id)
     else:
-        form = ProjectForm(instance=project)
+        form = UpdateProjectForm(instance=project)
 
     return TemplateResponse(request, 'panel/project_form.html', {'form': form})
