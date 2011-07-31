@@ -4,6 +4,7 @@ from errors.models import Error
 from errors.forms import ErrorForm
 from responses.models import Response
 from responses.forms import ResponseForm
+from projects.models import Project
 
 
 class ResponseHandler(BaseHandler):
@@ -16,7 +17,9 @@ class ResponseHandler(BaseHandler):
             form = ResponseForm(request.POST)
 
             if form.is_valid():
-                form.save()
+                instance = form.save()
+                instance.project = Project.objects.get(token=form.cleaned_data['token'])
+                instance.save()
                 return HttpResponse('response added with success!')
             else:
                 return HttpResponse('', status=500)

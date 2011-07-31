@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from errors.models import Error
 from responses.models import Response
+from projects.models import Project
 
 import base64
 
@@ -159,7 +160,14 @@ class ApiResponseTestCase(TestCase):
             'HTTP_AUTHORIZATION': auth,
         }
 
+        self.project = Project.objects.create(
+            name='project name',
+            url='http://projecturl.com',
+            token='123'
+        )
+
     def tearDown(self):
+        self.project.delete()
         self.user.delete()
 
     def test_api_response_view_should_add_a_response(self):
@@ -191,6 +199,21 @@ class ApiResponseTestCase(TestCase):
 
         response = self.client.post('/api/response/', post_data, **self.extra)
         self.assertEqual(200, response.status_code)
+
+    def test_api_response_view_should_create_a_relation_between_response_and_project(self):
+        '''
+        api response should create a realtionship between response and project
+        '''
+        post_data = {
+            'time': 0.11233,
+            'url': 'http://someurl.com',
+            'token': '123',
+        }
+
+        response = self.client.post('/api/response/', post_data, **self.extra)
+        
+        project = Response.objects.get(time=post_data['time']).project
+        self.assertTrue(project)
 
     def test_should_returns_405_when_the_method_isnt_post(self):
         '''
