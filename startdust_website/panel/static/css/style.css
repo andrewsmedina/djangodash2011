@@ -133,6 +133,13 @@ body {
 .screenshots {
     height:300px;    
 }
+ code {
+     border: dashed 1px #d3d2d2;
+     margin: 10px;
+     padding: 10px;
+     background-color: #EBEBEB;
+     display: block;
+ }
 
 .footer {
     background-color: #02313d;
