@@ -19,7 +19,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['projects'] = Project.objects.all()
+        context['projects'] = Project.objects.filter(user=self.request.user)
         return context
 
 
